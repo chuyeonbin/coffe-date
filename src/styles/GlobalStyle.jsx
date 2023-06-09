@@ -12,6 +12,10 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  body {
+    font-family: -apple-system, Tossface, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, Roboto, "Noto Sans KR", "Segoe UI", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  }
+
   a {
     text-decoration: none;
   }

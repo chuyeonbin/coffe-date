@@ -2,10 +2,24 @@ import 'styled-components';
 import { FontSizesTypes } from './theme';
 import { fontSizes } from './themes';
 
-type FontSizeTypes = typeof fontSizes;
-
 declare module 'styled-components' {
   export interface DefaultTheme {
-    fontSizes: FontSizesTypes;
+    fontSizes: {
+      xs: string;
+      sm: string;
+      md: string;
+      lg: string;
+      xl: string;
+      xxl: string;
+    };
+    fontWeights: {
+      extraBold: number;
+      bold: number;
+      semiBold: number;
+      regular: number;
+    };
+    colors: {
+      bgPage: string;
+    };
   }
 }

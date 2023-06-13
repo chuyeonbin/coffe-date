@@ -1,15 +1,17 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { MdOutlineLightMode, MdOutlineDarkMode } from 'react-icons/md';
 import { useRecoilState } from 'recoil';
 import { darkModeState } from '../../store/darkMode';
 
 export default function Header() {
+  const navigate = useNavigate();
   const [isDarkMode, setIsDarkMode] = useRecoilState(darkModeState);
 
-  const handleClick = () => {
+  const handleDarkModeClick = () => {
     setIsDarkMode(!isDarkMode);
   };
+
   return (
     <St.Container>
       <St.ContainerInner>
@@ -20,12 +22,12 @@ export default function Header() {
         </St.LogoContainer>
         <St.NavbarMenu>
           <St.NavbarItem>
-            <St.Button onClick={handleClick}>
+            <St.Button onClick={handleDarkModeClick}>
               {isDarkMode ? <MdOutlineDarkMode size={24} /> : <MdOutlineLightMode size={24} />}
             </St.Button>
           </St.NavbarItem>
           <St.NavbarItem>
-            <St.Button>로그인</St.Button>
+            <St.Button onClick={() => navigate('login')}>로그인</St.Button>
           </St.NavbarItem>
         </St.NavbarMenu>
       </St.ContainerInner>
@@ -39,7 +41,7 @@ const St = {
     top: 0;
     height: 60px;
     width: 100%;
-    background-color: ${({ theme }) => theme.colors.bgPage};
+    background-color: ${({ theme }) => theme.colors.bgElement1};
     border-bottom: 1px solid rgba(0, 27, 55, 0.1);
   `,
 
@@ -81,12 +83,13 @@ const St = {
     align-items: center;
     justify-content: center;
     padding: 12px 10px;
+    color: ${({ theme }) => theme.colors.text1};
     font-size: inherit;
     font-weight: inherit;
 
     &:hover {
       color: #c07343;
-      background-color: rgba(2, 32, 71, 0.05);
+      background-color: ${({ theme }) => theme.colors.slightLayer};
       border-radius: 8px;
     }
   `,

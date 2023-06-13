@@ -20,6 +20,9 @@ declare module 'styled-components' {
     };
     colors: {
       bgPage: string;
+      bgElement1: string;
+      text1: string;
+      slightLayer: string;
     };
   }
 }

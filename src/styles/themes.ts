@@ -19,13 +19,11 @@ const fontWeights: DefaultTheme['fontWeights'] = {
 export const lightTheme: DefaultTheme = {
   fontSizes,
   fontWeights,
-  colors: {
-    bgPage: '#ffffff',
-  },
+  colors: { bgPage: '#ffffff' },
 };
 
 export const darkTheme: DefaultTheme = {
   fontSizes,
   fontWeights,
-  colors: { bgPage: '#dddddd' },
+  colors: { bgPage: '#000000' },
 };

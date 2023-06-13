@@ -21,11 +21,19 @@ export const lightTheme: DefaultTheme = {
   fontWeights,
   colors: {
     bgPage: '#ffffff',
+    bgElement1: '#ffffff',
+    text1: '#8b95a1',
+    slightLayer: 'rgba(0,0,0,0.05)',
   },
 };
 
 export const darkTheme: DefaultTheme = {
   fontSizes,
   fontWeights,
-  colors: { bgPage: '#ffffff' },
+  colors: {
+    bgPage: '#1b1b1d',
+    bgElement1: '#242526',
+    text1: '#ffffff',
+    slightLayer: 'rgba(255,238,217,0.11)',
+  },
 };

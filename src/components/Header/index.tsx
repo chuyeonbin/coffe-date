@@ -1,8 +1,15 @@
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { MdOutlineLightMode } from 'react-icons/md';
+import { MdOutlineLightMode, MdOutlineDarkMode } from 'react-icons/md';
+import { useRecoilState } from 'recoil';
+import { darkModeState } from '../../store/darkMode';
 
 export default function Header() {
+  const [isDarkMode, setIsDarkMode] = useRecoilState(darkModeState);
+
+  const handleClick = () => {
+    setIsDarkMode(!isDarkMode);
+  };
   return (
     <St.Container>
       <St.ContainerInner>
@@ -13,8 +20,8 @@ export default function Header() {
         </St.LogoContainer>
         <St.NavbarMenu>
           <St.NavbarItem>
-            <St.Button>
-              <MdOutlineLightMode size={24} />
+            <St.Button onClick={handleClick}>
+              {isDarkMode ? <MdOutlineDarkMode size={24} /> : <MdOutlineLightMode size={24} />}
             </St.Button>
           </St.NavbarItem>
           <St.NavbarItem>
@@ -32,7 +39,7 @@ const St = {
     top: 0;
     height: 60px;
     width: 100%;
-    background-color: white;
+    background-color: ${({ theme }) => theme.colors.bgPage};
     border-bottom: 1px solid rgba(0, 27, 55, 0.1);
   `,
 

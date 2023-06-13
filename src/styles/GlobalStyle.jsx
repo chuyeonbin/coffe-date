@@ -14,6 +14,7 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: -apple-system, Tossface, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, Roboto, "Noto Sans KR", "Segoe UI", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    background-color: ${({ theme }) => theme.colors.bgPage};
   }
 
   a {

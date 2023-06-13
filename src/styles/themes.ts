@@ -27,5 +27,5 @@ export const lightTheme: DefaultTheme = {
 export const darkTheme: DefaultTheme = {
   fontSizes,
   fontWeights,
-  colors: { bgPage: '#ffffff' },
+  colors: { bgPage: '#dddddd' },
 };

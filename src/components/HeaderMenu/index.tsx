@@ -1,13 +1,18 @@
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-export default function HeaderMenu() {
-  const handleLogOutClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-  };
+interface HeaderMenuProps {
+  onClose: () => void;
+  onLogOut: (e: React.MouseEvent) => void;
+  isVisible: boolean;
+}
+
+export default function HeaderMenu({ onClose, onLogOut, isVisible }: HeaderMenuProps) {
+  console.log(isVisible);
+  if (!isVisible) return null;
 
   return (
-    <St.Container>
+    <St.Container onClick={onClose}>
       <St.HeaderMenu>
         <St.HeaderItem>
           <Link to={'my-page'}>내 정보 😀</Link>
@@ -22,7 +27,7 @@ export default function HeaderMenu() {
           <Link to={'history'}>커피 소비 내역 🧾</Link>
         </St.HeaderItem>
         <St.HeaderItem>
-          <Link to={'logout'} onClick={handleLogOutClick}>
+          <Link to={'logout'} onClick={onLogOut}>
             로그아웃
           </Link>
         </St.HeaderItem>

@@ -1,19 +1,27 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { MdOutlineLightMode, MdOutlineDarkMode } from 'react-icons/md';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { darkModeState } from '../../store/darkMode';
 import HeaderMenu from '../HeaderMenu';
 import { userState } from '../../store/user';
 import { BiUser } from 'react-icons/bi';
+import useToggle from '../../hooks/useToggle';
 
 export default function Header() {
   const navigate = useNavigate();
-  const user = useRecoilValue(userState);
+  const [isVisible, toggleMenu] = useToggle(false);
+  const [user, setUser] = useRecoilState(userState);
   const [isDarkMode, setIsDarkMode] = useRecoilState(darkModeState);
 
   const handleDarkModeClick = () => {
     setIsDarkMode(!isDarkMode);
+  };
+
+  const handleLogOutClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    navigate('/');
+    setUser(null);
   };
 
   return (
@@ -32,7 +40,7 @@ export default function Header() {
           </St.NavbarItem>
           <St.NavbarItem>
             {user ? (
-              <St.Button>
+              <St.Button onClick={toggleMenu}>
                 <BiUser size={24} />
               </St.Button>
             ) : (
@@ -40,7 +48,9 @@ export default function Header() {
             )}
           </St.NavbarItem>
         </St.NavbarMenu>
-        {user && <HeaderMenu />}
+        {user && (
+          <HeaderMenu onClose={toggleMenu} onLogOut={handleLogOutClick} isVisible={isVisible} />
+        )}
       </St.ContainerInner>
     </St.Container>
   );

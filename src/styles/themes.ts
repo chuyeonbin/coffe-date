@@ -24,6 +24,7 @@ export const lightTheme: DefaultTheme = {
     bgElement1: '#ffffff',
     elementShadow: 'rgba(55, 31, 0, 0.1)',
     text1: '#8b95a1',
+    primary1: '#c07343',
     slightLayer: 'rgba(0,0,0,0.05)',
   },
 };
@@ -36,6 +37,7 @@ export const darkTheme: DefaultTheme = {
     bgElement1: '#242526',
     elementShadow: 'rgba(55, 31, 0, 0.1)',
     text1: '#ffffff',
+    primary1: '#c07343;',
     slightLayer: 'rgba(255,238,217,0.11)',
   },
 };

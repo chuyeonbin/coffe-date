@@ -3,13 +3,25 @@ import { styled } from 'styled-components';
 import { MdOutlineLightMode, MdOutlineDarkMode } from 'react-icons/md';
 import { useRecoilState } from 'recoil';
 import { darkModeState } from '../../store/darkMode';
+import HeaderMenu from '../HeaderMenu';
+import { userState } from '../../store/user';
+import { BiUser } from 'react-icons/bi';
+import useToggle from '../../hooks/useToggle';
 
 export default function Header() {
   const navigate = useNavigate();
+  const [isVisible, toggleMenu] = useToggle(false);
+  const [user, setUser] = useRecoilState(userState);
   const [isDarkMode, setIsDarkMode] = useRecoilState(darkModeState);
 
   const handleDarkModeClick = () => {
     setIsDarkMode(!isDarkMode);
+  };
+
+  const handleLogOutClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    navigate('/');
+    setUser(null);
   };
 
   return (
@@ -27,9 +39,18 @@ export default function Header() {
             </St.Button>
           </St.NavbarItem>
           <St.NavbarItem>
-            <St.Button onClick={() => navigate('login')}>로그인</St.Button>
+            {user ? (
+              <St.Button onClick={toggleMenu}>
+                <BiUser size={24} />
+              </St.Button>
+            ) : (
+              <St.Button onClick={() => navigate('login')}>로그인</St.Button>
+            )}
           </St.NavbarItem>
         </St.NavbarMenu>
+        {user && (
+          <HeaderMenu onClose={toggleMenu} onLogOut={handleLogOutClick} isVisible={isVisible} />
+        )}
       </St.ContainerInner>
     </St.Container>
   );
@@ -46,6 +67,7 @@ const St = {
   `,
 
   ContainerInner: styled.div`
+    position: relative;
     margin: 0 auto;
     padding: 0 16px;
     height: 100%;
@@ -88,7 +110,7 @@ const St = {
     font-weight: inherit;
 
     &:hover {
-      color: #c07343;
+      color: ${({ theme }) => theme.colors.primary1};
       background-color: ${({ theme }) => theme.colors.slightLayer};
       border-radius: 8px;
     }

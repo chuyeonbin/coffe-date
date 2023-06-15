@@ -18,7 +18,7 @@ export default function HeaderMenu({ onClose, onLogOut, isVisible }: HeaderMenuP
           <Link to={'my-page'}>내 정보 😀</Link>
         </St.HeaderItem>
         <St.HeaderItem>
-          <Link to={'log'}>커피 기록하기 ☕️</Link>
+          <Link to={'log'}>커피 기록하기 ✒️</Link>
         </St.HeaderItem>
         <St.HeaderItem>
           <Link to={'tree'}>내 커피 나무 🪵</Link>

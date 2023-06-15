@@ -22,6 +22,7 @@ declare module 'styled-components' {
       bgPage: string;
       bgElement1: string;
       text1: string;
+      elementShadow: string;
       slightLayer: string;
     };
   }

@@ -8,7 +8,6 @@ interface HeaderMenuProps {
 }
 
 export default function HeaderMenu({ onClose, onLogOut, isVisible }: HeaderMenuProps) {
-  console.log(isVisible);
   if (!isVisible) return null;
 
   return (

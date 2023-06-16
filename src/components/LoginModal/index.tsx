@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+import LoginForm from '../LoginForm';
 
 export default function LoginModal() {
   return (
@@ -10,7 +11,10 @@ export default function LoginModal() {
         </St.LogoContainer>
         <St.WelcomeText>환영합니다!</St.WelcomeText>
       </St.Left>
-      <St.Right>LoginForm</St.Right>
+      <St.Right>
+        <St.LoginText>로그인</St.LoginText>
+        <LoginForm />
+      </St.Right>
     </St.Container>
   );
 }
@@ -18,8 +22,8 @@ export default function LoginModal() {
 const St = {
   Container: styled.div`
     display: flex;
-    width: 500px;
-    height: 500px;
+    width: 600px;
+    height: 530px;
     background-color: ${({ theme }) => theme.colors.bgElement1};
     border-radius: 8px;
     box-shadow: ${({ theme }) => theme.colors.elementShadow};
@@ -36,9 +40,17 @@ const St = {
 
   Right: styled.div`
     display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
     padding: 24px;
     width: 60%;
+  `,
+
+  LoginText: styled.h2`
+    margin-bottom: 24px;
+    font-size: ${({ theme }) => theme.fontSizes.xxx1};
+    color: ${({ theme }) => theme.colors.text2};
   `,
 
   Title: styled.h1`
@@ -56,7 +68,7 @@ const St = {
   `,
 
   WelcomeText: styled.h2`
-    font-size: 24px;
+    font-size: ${({ theme }) => theme.fontSizes.xxx1};
     color: ${({ theme }) => theme.colors.text1};
   `,
 };

@@ -38,15 +38,13 @@ export default function Header() {
               {isDarkMode ? <MdOutlineDarkMode size={24} /> : <MdOutlineLightMode size={24} />}
             </St.Button>
           </St.NavbarItem>
-          <St.NavbarItem>
-            {user ? (
+          {user && (
+            <St.NavbarItem>
               <St.Button onClick={toggleMenu}>
                 <BiUser size={24} />
               </St.Button>
-            ) : (
-              <St.Button onClick={() => navigate('login')}>로그인</St.Button>
-            )}
-          </St.NavbarItem>
+            </St.NavbarItem>
+          )}
         </St.NavbarMenu>
         {user && (
           <HeaderMenu onClose={toggleMenu} onLogOut={handleLogOutClick} isVisible={isVisible} />

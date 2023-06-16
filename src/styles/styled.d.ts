@@ -21,6 +21,7 @@ declare module 'styled-components' {
     colors: {
       bgPage: string;
       bgElement1: string;
+      bgElement2: string;
       text1: string;
       primary1: string;
       elementShadow: string;

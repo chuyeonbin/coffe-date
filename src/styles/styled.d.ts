@@ -23,6 +23,7 @@ declare module 'styled-components' {
       bgElement1: string;
       bgElement2: string;
       text1: string;
+      border1: string;
       primary1: string;
       elementShadow: string;
       slightLayer: string;

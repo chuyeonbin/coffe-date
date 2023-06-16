@@ -59,7 +59,7 @@ const St = {
     height: 60px;
     width: 100%;
     background-color: ${({ theme }) => theme.colors.bgElement1};
-    border-bottom: 1px solid rgba(0, 27, 55, 0.1);
+    border-bottom: 1px solid ${({ theme }) => theme.colors.border1};
   `,
 
   ContainerInner: styled.div`

@@ -44,7 +44,7 @@ const St = {
     width: 200px;
     overflow: hidden;
     border-radius: 8px;
-    box-shadow: 0 0 4px 0 rgba(55, 31, 0, 0.1), 0 4px 16px 0 rgba(55, 31, 0, 0.1);
+    box-shadow: ${({ theme }) => theme.colors.elementShadow};
   `,
   HeaderMenu: styled.ul`
     line-height: 1.5;

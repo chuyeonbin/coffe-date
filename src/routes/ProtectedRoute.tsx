@@ -14,8 +14,8 @@ export default function ProtectedRoute({
   const user = useRecoilValue(userState);
 
   if (authentication) {
-    return user ? <>{Component}</> : <Navigate to={'/login'} />;
+    return user ? <>{Component}</> : <Navigate to={'login'} />;
   }
 
-  return user && <Navigate to={'/'} />;
+  return user ? <Navigate to={'/'} /> : <>{Component}</>;
 }

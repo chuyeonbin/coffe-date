@@ -1,28 +1,49 @@
-import { FormEvent } from 'react';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { styled } from 'styled-components';
+import { regex } from '../../utils/regex';
+
+interface FormInputs {
+  email: string;
+}
 
 export default function LoginForm() {
-  // const {} = useForm();
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<FormInputs>();
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    console.log('test');
+  const onSubmit: SubmitHandler<FormInputs> = (data) => {
+    console.log(data);
   };
 
   return (
-    <St.Form onSubmit={handleSubmit}>
-      <St.EmailInput type='text' name='email' placeholder='이메일을 입력하세요.' />
-      <St.Button type='submit'>로그인</St.Button>
-    </St.Form>
+    <>
+      <St.Form onSubmit={handleSubmit(onSubmit)}>
+        <St.EmailInput
+          type='text'
+          placeholder='이메일을 입력하세요.'
+          {...register('email', {
+            required: true,
+            pattern: {
+              value: regex.email,
+              message: '올바른 이메일 형식이 아닙니다.',
+            },
+          })}
+        />
+        <St.Button type='submit'>로그인</St.Button>
+      </St.Form>
+    </>
   );
 }
 
 const St = {
   Form: styled.form`
+    position: relative;
     display: flex;
     width: 100%;
   `,
+
   EmailInput: styled.input`
     flex-grow: 1;
     padding: 16px;
@@ -39,6 +60,7 @@ const St = {
       border-right-width: 0;
     }
   `,
+
   Button: styled.button`
     padding: 16px 12px;
     background-color: ${({ theme }) => theme.colors.button1};

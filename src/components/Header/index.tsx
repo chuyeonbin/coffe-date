@@ -38,15 +38,13 @@ export default function Header() {
               {isDarkMode ? <MdOutlineDarkMode size={24} /> : <MdOutlineLightMode size={24} />}
             </St.Button>
           </St.NavbarItem>
-          <St.NavbarItem>
-            {user ? (
+          {user && (
+            <St.NavbarItem>
               <St.Button onClick={toggleMenu}>
                 <BiUser size={24} />
               </St.Button>
-            ) : (
-              <St.Button onClick={() => navigate('login')}>로그인</St.Button>
-            )}
-          </St.NavbarItem>
+            </St.NavbarItem>
+          )}
         </St.NavbarMenu>
         {user && (
           <HeaderMenu onClose={toggleMenu} onLogOut={handleLogOutClick} isVisible={isVisible} />
@@ -58,12 +56,10 @@ export default function Header() {
 
 const St = {
   Container: styled.header`
-    position: fixed;
-    top: 0;
     height: 60px;
     width: 100%;
     background-color: ${({ theme }) => theme.colors.bgElement1};
-    border-bottom: 1px solid rgba(0, 27, 55, 0.1);
+    border-bottom: 1px solid ${({ theme }) => theme.colors.border1};
   `,
 
   ContainerInner: styled.div`

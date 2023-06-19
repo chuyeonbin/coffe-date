@@ -11,6 +11,7 @@ declare module 'styled-components' {
       lg: string;
       xl: string;
       xxl: string;
+      xxx1: string;
     };
     fontWeights: {
       extraBold: number;
@@ -21,8 +22,15 @@ declare module 'styled-components' {
     colors: {
       bgPage: string;
       bgElement1: string;
+      bgElement2: string;
       text1: string;
+      text2: string;
+      border1: string;
+      border2: string;
       primary1: string;
+      button1: string;
+      button2: string;
+      buttonText: string;
       elementShadow: string;
       slightLayer: string;
     };

@@ -1,6 +1,7 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { styled } from 'styled-components';
 import { regex } from '../../utils/regex';
+import { TailSpin } from 'react-loader-spinner';
 
 export interface FormInputs {
   email: string;
@@ -8,9 +9,10 @@ export interface FormInputs {
 
 interface LoginFormProps {
   onSubmit: SubmitHandler<FormInputs>;
+  loading: boolean;
 }
 
-export default function LoginForm({ onSubmit }: LoginFormProps) {
+export default function LoginForm({ onSubmit, loading }: LoginFormProps) {
   const {
     register,
     formState: { errors },
@@ -31,7 +33,9 @@ export default function LoginForm({ onSubmit }: LoginFormProps) {
             },
           })}
         />
-        <St.Button type='submit'>로그인</St.Button>
+        <St.Button type='submit'>
+          {!loading ? '로그인' : <TailSpin color='white' height={16} width={16} />}
+        </St.Button>
       </St.Form>
       {errors.email && <St.ErrorMessage>{errors.email.message}</St.ErrorMessage>}
     </>

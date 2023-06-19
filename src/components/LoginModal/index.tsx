@@ -5,9 +5,13 @@ import { useState } from 'react';
 
 export default function LoginModal() {
   const [isMessageVisible, setIsMessageVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit: SubmitHandler<FormInputs> = (data) => {
-    setIsMessageVisible(true);
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsMessageVisible(true);
+    }, 2000);
   };
 
   return (
@@ -22,7 +26,7 @@ export default function LoginModal() {
       <St.Right>
         <St.LoginText>로그인</St.LoginText>
         {!isMessageVisible ? (
-          <LoginForm onSubmit={handleSubmit} />
+          <LoginForm onSubmit={handleSubmit} loading={isLoading} />
         ) : (
           <St.EmailSendMessage>이메일로 로그인 링크를 전송 했습니다!</St.EmailSendMessage>
         )}

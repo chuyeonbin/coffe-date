@@ -2,20 +2,20 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { styled } from 'styled-components';
 import { regex } from '../../utils/regex';
 
-interface FormInputs {
+export interface FormInputs {
   email: string;
 }
 
-export default function LoginForm() {
+interface LoginFormProps {
+  onSubmit: SubmitHandler<FormInputs>;
+}
+
+export default function LoginForm({ onSubmit }: LoginFormProps) {
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm<FormInputs>();
-
-  const onSubmit: SubmitHandler<FormInputs> = (data) => {
-    console.log(data);
-  };
 
   return (
     <>

@@ -1,7 +1,15 @@
 import { styled } from 'styled-components';
-import LoginForm from '../LoginForm';
+import LoginForm, { FormInputs } from '../LoginForm';
+import { SubmitHandler } from 'react-hook-form';
+import { useState } from 'react';
 
 export default function LoginModal() {
+  const [isMessageVisible, setIsMessageVisible] = useState(false);
+
+  const handleSubmit: SubmitHandler<FormInputs> = (data) => {
+    setIsMessageVisible(true);
+  };
+
   return (
     <St.Container>
       <St.Left>
@@ -13,7 +21,11 @@ export default function LoginModal() {
       </St.Left>
       <St.Right>
         <St.LoginText>로그인</St.LoginText>
-        <LoginForm />
+        {!isMessageVisible ? (
+          <LoginForm onSubmit={handleSubmit} />
+        ) : (
+          <St.EmailSendMessage>이메일로 로그인 링크를 전송 했습니다!</St.EmailSendMessage>
+        )}
       </St.Right>
     </St.Container>
   );
@@ -70,5 +82,15 @@ const St = {
   WelcomeText: styled.h2`
     font-size: ${({ theme }) => theme.fontSizes.xxx1};
     color: ${({ theme }) => theme.colors.text1};
+  `,
+
+  EmailSendMessage: styled.div`
+    padding: 16px;
+    width: 100%;
+    font-size: ${({ theme }) => theme.fontSizes.md};
+    color: #ffffff;
+    background-color: #ffb689;
+    border-radius: 8px;
+    border: 1px solid #ff8630;
   `,
 };

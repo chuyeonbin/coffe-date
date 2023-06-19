@@ -33,6 +33,7 @@ export default function LoginForm() {
         />
         <St.Button type='submit'>로그인</St.Button>
       </St.Form>
+      {errors.email && <St.ErrorMessage>{errors.email.message}</St.ErrorMessage>}
     </>
   );
 }
@@ -73,5 +74,11 @@ const St = {
     &:hover {
       background-color: ${({ theme }) => theme.colors.button2};
     }
+  `,
+
+  ErrorMessage: styled.p`
+    align-self: flex-start;
+    margin-top: 8px;
+    color: red;
   `,
 };

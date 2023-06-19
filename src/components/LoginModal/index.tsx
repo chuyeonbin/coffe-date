@@ -2,6 +2,7 @@ import { styled } from 'styled-components';
 import LoginForm, { FormInputs } from '../LoginForm';
 import { SubmitHandler } from 'react-hook-form';
 import { useState } from 'react';
+import ModalLeft from '../ModalLeft';
 
 export default function LoginModal() {
   const [isMessageVisible, setIsMessageVisible] = useState(false);
@@ -16,13 +17,7 @@ export default function LoginModal() {
 
   return (
     <St.Container>
-      <St.Left>
-        <St.Title>Daily Coffee</St.Title>
-        <St.LogoContainer>
-          <St.Logo src={process.env.PUBLIC_URL + '/welcome.svg'} alt='welcome' />
-        </St.LogoContainer>
-        <St.WelcomeText>환영합니다!</St.WelcomeText>
-      </St.Left>
+      <ModalLeft />
       <St.Right>
         <St.LoginText>로그인</St.LoginText>
         {!isMessageVisible ? (
@@ -45,15 +40,6 @@ const St = {
     box-shadow: ${({ theme }) => theme.colors.elementShadow};
   `,
 
-  Left: styled.div`
-    width: 40%;
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background-color: ${({ theme }) => theme.colors.bgElement2};
-  `,
-
   Right: styled.div`
     display: flex;
     flex-direction: column;
@@ -67,25 +53,6 @@ const St = {
     margin-bottom: 24px;
     font-size: ${({ theme }) => theme.fontSizes.xxx1};
     color: ${({ theme }) => theme.colors.text2};
-  `,
-
-  Title: styled.h1`
-    font-size: 28px;
-    color: ${({ theme }) => theme.colors.primary1};
-  `,
-
-  LogoContainer: styled.div`
-    margin: 16px 0;
-  `,
-
-  Logo: styled.img`
-    width: 100%;
-    height: 100%;
-  `,
-
-  WelcomeText: styled.h2`
-    font-size: ${({ theme }) => theme.fontSizes.xxx1};
-    color: ${({ theme }) => theme.colors.text1};
   `,
 
   EmailSendMessage: styled.div`

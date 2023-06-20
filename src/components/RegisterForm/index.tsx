@@ -36,7 +36,6 @@ export default function RegisterForm({
               switchDuplication();
             },
             validate: (value) => {
-              console.log(value);
               if (value.length < 3 || value.length > 20) {
                 switchDuplication();
                 return '3~20 이내 닉네임을 정해주세요.';

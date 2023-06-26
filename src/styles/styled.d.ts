@@ -12,6 +12,7 @@ declare module 'styled-components' {
       xl: string;
       xxl: string;
       xxx1: string;
+      xxx2: string;
     };
     fontWeights: {
       extraBold: number;

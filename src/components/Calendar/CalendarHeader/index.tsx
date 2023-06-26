@@ -3,13 +3,14 @@ import styled from 'styled-components';
 import SelectCalendar from './SelectCalendar';
 import { IoMdArrowDropleft, IoMdArrowDropright } from 'react-icons/io';
 import { monthOf5YearFormat } from '../../../utils/calendar';
+import CalendarLayout from '../../layouts/CalendarLayout/CalendarLayout';
 
 export default function CalendarHeader() {
   const dates = monthOf5YearFormat();
   const [options, setOptions] = useState(dates);
 
   return (
-    <St.Container>
+    <CalendarLayout>
       <St.CalendarContainer>
         <PrevButton>
           <IoMdArrowDropleft size={24} />
@@ -30,18 +31,11 @@ export default function CalendarHeader() {
           </St.TotalCup>
         </St.TotalCupContainer>
       </St.TotalContainer>
-    </St.Container>
+    </CalendarLayout>
   );
 }
 
 const St = {
-  Container: styled.div`
-    padding: 16px;
-    background-color: ${({ theme }) => theme.colors.bgElement1};
-    border-radius: 12px;
-    border-bottom: 1px solid ${({ theme }) => theme.colors.border1};
-  `,
-
   CalendarContainer: styled.div`
     display: flex;
     gap: 10px;

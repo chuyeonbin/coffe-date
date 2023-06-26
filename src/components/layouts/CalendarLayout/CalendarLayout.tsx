@@ -1,7 +1,8 @@
+import { ReactNode } from 'react';
 import styled from 'styled-components';
 
 interface CalendarLayoutProps {
-  children: JSX.Element;
+  children?: ReactNode;
 }
 
 export default function CalendarLayout({ children }: CalendarLayoutProps) {

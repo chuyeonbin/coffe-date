@@ -45,6 +45,7 @@ const St = {
     overflow: hidden;
     border-radius: 8px;
     box-shadow: ${({ theme }) => theme.colors.elementShadow};
+    font-family: Tossface;
   `,
   HeaderMenu: styled.ul`
     line-height: 1.5;

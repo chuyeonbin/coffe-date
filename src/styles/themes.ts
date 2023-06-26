@@ -16,6 +16,7 @@ const fontWeights: DefaultTheme['fontWeights'] = {
   bold: 800,
   semiBold: 700,
   regular: 600,
+  semiRegular: 500,
 };
 
 export const lightTheme: DefaultTheme = {

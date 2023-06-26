@@ -19,6 +19,7 @@ declare module 'styled-components' {
       bold: number;
       semiBold: number;
       regular: number;
+      semiRegular: number;
     };
     colors: {
       bgPage: string;

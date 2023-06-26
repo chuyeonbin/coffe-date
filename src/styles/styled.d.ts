@@ -31,6 +31,7 @@ declare module 'styled-components' {
       border2: string;
       border3: string;
       primary1: string;
+      primary2: string;
       button1: string;
       button2: string;
       buttonText: string;

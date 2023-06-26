@@ -8,7 +8,7 @@ const fontSizes: DefaultTheme['fontSizes'] = {
   xl: '20px',
   xxl: '22px',
   xxx1: '24px',
-  xxx2: '40px',
+  xxx2: '28px',
 };
 
 const fontWeights: DefaultTheme['fontWeights'] = {

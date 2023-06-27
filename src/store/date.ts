@@ -1,12 +1,6 @@
 import { atom } from 'recoil';
 
-export interface DateType {
-  currentMonth: Date | number;
-}
-
-export const dateState = atom<DateType>({
+export const dateState = atom<Date | number>({
   key: 'date',
-  default: {
-    currentMonth: new Date(),
-  },
+  default: new Date(),
 });

@@ -12,7 +12,7 @@ import { useRecoilValue } from 'recoil';
 import { dateState } from '../../../../../store/date';
 
 export default function DaysRender() {
-  const { currentDate } = useRecoilValue(dateState);
+  const currentDate = useRecoilValue(dateState);
   const monthStart = startOfMonth(currentDate);
   const monthEnd = endOfMonth(monthStart);
   const startDate = startOfWeek(monthStart);

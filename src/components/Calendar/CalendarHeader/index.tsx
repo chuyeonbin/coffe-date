@@ -4,19 +4,31 @@ import SelectCalendar from './SelectCalendar';
 import { IoMdArrowDropleft, IoMdArrowDropright } from 'react-icons/io';
 import { monthOf5YearFormat } from '../../../utils/calendar';
 import CalendarLayout from '../../layouts/CalendarLayout/CalendarLayout';
+import { useRecoilState } from 'recoil';
+import { dateState } from '../../../store/date';
+import { subMonths } from 'date-fns';
 
 export default function CalendarHeader() {
   const dates = monthOf5YearFormat();
   const [options, setOptions] = useState(dates);
+  const [currentDate, setCurrentDate] = useRecoilState(dateState);
+
+  const prevMonth = () => {
+    setCurrentDate(subMonths(currentDate, 1));
+  };
+
+  const nextMonth = () => {
+    setCurrentDate(subMonths(currentDate, -1));
+  };
 
   return (
     <CalendarLayout>
       <St.CalendarContainer>
-        <PrevButton>
+        <PrevButton onClick={prevMonth}>
           <IoMdArrowDropleft size={24} />
         </PrevButton>
         {options && <SelectCalendar options={options} defaultOption={options[0]} />}
-        <NextButton>
+        <NextButton onClick={nextMonth}>
           <IoMdArrowDropright size={24} />
         </NextButton>
       </St.CalendarContainer>
@@ -39,7 +51,7 @@ const St = {
   CalendarContainer: styled.div`
     display: flex;
     gap: 10px;
-    margin-bottom: 12px;
+    margin-bottom: 2rem;
   `,
 
   TotalContainer: styled.div`
@@ -53,13 +65,13 @@ const St = {
   `,
 
   TotalPrice: styled.h2`
-    margin-bottom: 12px;
+    margin-bottom: 2rem;
     font-size: ${({ theme }) => theme.fontSizes.xxx1};
     font-weight: ${({ theme }) => theme.fontWeights.regular};
   `,
 
   TotalCupDescription: styled.p`
-    margin-bottom: 12px;
+    margin-bottom: 1.5rem;
     font-size: ${({ theme }) => theme.fontSizes.lg};
     & > span {
       font-weight: ${({ theme }) => theme.fontWeights.regular};

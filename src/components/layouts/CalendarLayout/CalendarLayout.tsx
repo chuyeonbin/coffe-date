@@ -11,6 +11,7 @@ export default function CalendarLayout({ children }: CalendarLayoutProps) {
 
 const St = {
   Container: styled.div`
+    margin-bottom: 5rem;
     padding: 16px;
     background-color: ${({ theme }) => theme.colors.bgElement1};
     border-radius: 12px;

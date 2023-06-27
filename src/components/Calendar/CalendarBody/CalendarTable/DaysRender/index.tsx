@@ -25,7 +25,7 @@ export default function DaysRender() {
   while (day <= endDate) {
     for (let i = 0; i < 7; i++) {
       const formatDate = isSameMonth(day, monthStart) ? format(day, 'd') : null;
-      const formatPrice = isSameMonth(day, monthStart) ? '200,000' : null;
+      const formatPrice = isSameMonth(day, monthStart) ? '-200,000' : null;
       const formatCoffee = isSameMonth(day, monthStart) ? '☕️' : null;
 
       days.push(
@@ -66,10 +66,11 @@ const St = {
 
   Price: styled.div`
     font-size: ${({ theme }) => theme.fontSizes.xs};
+    color: ${({ theme }) => theme.colors.primary2};
   `,
 
   Coffee: styled.div`
-    font-size: ${({ theme }) => theme.fontSizes.sm};
+    font-size: ${({ theme }) => theme.fontSizes.lg};
     font-family: TossFace;
     white-space: wrap;
   `,

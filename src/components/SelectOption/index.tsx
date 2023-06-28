@@ -1,16 +1,20 @@
 import styled from 'styled-components';
 
 interface SelectOptionProps {
-  options: string[];
-  defaultOption: string;
+  options: {
+    key: number;
+    value: string;
+  }[];
+  defaultValue: string;
+  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
-export default function SelectCalendar({ options, defaultOption }: SelectOptionProps) {
+export default function SelectOption({ options, defaultValue, onChange }: SelectOptionProps) {
   return (
-    <St.Select defaultValue={defaultOption}>
+    <St.Select key={defaultValue} onChange={onChange} defaultValue={defaultValue}>
       {options.map((option) => (
-        <St.Option key={option} value={option}>
-          {option}
+        <St.Option key={option.value} value={option.value}>
+          {option.value}
         </St.Option>
       ))}
     </St.Select>

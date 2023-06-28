@@ -1,24 +1,38 @@
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import SelectOption from '../../SelectOption';
 import { IoMdArrowDropleft, IoMdArrowDropright } from 'react-icons/io';
-import { monthOf5YearFormat } from '../../../utils/calendar';
+import { monthOf5YearDates } from '../../../utils/calendar';
 import CalendarLayout from '../../layouts/CalendarLayout/CalendarLayout';
 import { useRecoilState } from 'recoil';
 import { dateState } from '../../../store/date';
-import { subMonths } from 'date-fns';
+import { format, subMonths } from 'date-fns';
 
 export default function CalendarHeader() {
-  const dates = monthOf5YearFormat();
-  const [options, setOptions] = useState(dates);
+  const options = monthOf5YearDates().map((date) => ({
+    key: date.getTime(),
+    value: format(date, 'yyyy년 MM월'),
+  }));
   const [currentDate, setCurrentDate] = useRecoilState(dateState);
+  const [selectedDate, setSelectedDate] = useState(options[0].value);
 
   const prevMonth = () => {
-    setCurrentDate(subMonths(currentDate, 1));
+    const prevDate = subMonths(currentDate, 1);
+    setCurrentDate(prevDate);
+    setSelectedDate(format(prevDate, 'yyyy년 MM월'));
   };
 
   const nextMonth = () => {
-    setCurrentDate(subMonths(currentDate, -1));
+    const nextDate = subMonths(currentDate, -1);
+    setCurrentDate(nextDate);
+    setSelectedDate(format(nextDate, 'yyyy년 MM월'));
+  };
+
+  const handleChangeSelectOption = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const index = options.findIndex((option) => option.value === e.target.value);
+    const date = new Date(options[index].key);
+    setCurrentDate(date);
+    setSelectedDate(e.target.value);
   };
 
   return (
@@ -27,7 +41,11 @@ export default function CalendarHeader() {
         <PrevButton onClick={prevMonth}>
           <IoMdArrowDropleft size={24} />
         </PrevButton>
-        {options && <SelectOption options={options} defaultOption={options[0]} />}
+        <SelectOption
+          options={options}
+          defaultValue={selectedDate}
+          onChange={handleChangeSelectOption}
+        />
         <NextButton onClick={nextMonth}>
           <IoMdArrowDropright size={24} />
         </NextButton>

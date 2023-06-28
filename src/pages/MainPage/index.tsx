@@ -1,9 +1,10 @@
-import { Outlet } from 'react-router-dom';
+import DefaultLayout from '../../components/layouts/DefaultLayout';
+import Calendar from '../../components/Calendar';
 
 export default function MainPage() {
   return (
-    <div>
-      <Outlet />
-    </div>
+    <DefaultLayout>
+      <Calendar />
+    </DefaultLayout>
   );
 }

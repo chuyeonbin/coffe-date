@@ -18,6 +18,12 @@ export default function CalendarHeader() {
 
   const prevMonth = () => {
     const prevDate = subMonths(currentDate, 1);
+    if (
+      getYear(prevDate) === getYear(new Date()) - 5 &&
+      getMonth(prevDate) < getMonth(new Date())
+    ) {
+      return;
+    }
     setCurrentDate(prevDate);
     setSelectedDate(format(prevDate, 'yyyy년 MM월'));
   };

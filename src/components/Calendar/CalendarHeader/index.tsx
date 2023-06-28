@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import SelectCalendar from './SelectCalendar';
+import SelectCalendar from '../../SelectCalendar';
 import { IoMdArrowDropleft, IoMdArrowDropright } from 'react-icons/io';
 import { monthOf5YearFormat } from '../../../utils/calendar';
 import CalendarLayout from '../../layouts/CalendarLayout/CalendarLayout';

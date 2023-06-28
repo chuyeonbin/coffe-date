@@ -6,7 +6,7 @@ import { monthOf5YearDates } from '../../../utils/calendar';
 import CalendarLayout from '../../layouts/CalendarLayout/CalendarLayout';
 import { useRecoilState } from 'recoil';
 import { dateState } from '../../../store/date';
-import { format, subMonths } from 'date-fns';
+import { format, subMonths, getYear, getMonth } from 'date-fns';
 
 export default function CalendarHeader() {
   const options = monthOf5YearDates().map((date) => ({
@@ -24,6 +24,10 @@ export default function CalendarHeader() {
 
   const nextMonth = () => {
     const nextDate = subMonths(currentDate, -1);
+    if (getYear(nextDate) === getYear(new Date()) && getMonth(nextDate) > getMonth(new Date())) {
+      console.log('test');
+      return;
+    }
     setCurrentDate(nextDate);
     setSelectedDate(format(nextDate, 'yyyy년 MM월'));
   };

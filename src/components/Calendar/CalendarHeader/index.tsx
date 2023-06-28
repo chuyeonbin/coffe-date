@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import SelectOption from '../../SelectOption';
 import { IoMdArrowDropleft, IoMdArrowDropright } from 'react-icons/io';
@@ -14,7 +14,7 @@ export default function CalendarHeader() {
     value: format(date, 'yyyy년 MM월'),
   }));
   const [currentDate, setCurrentDate] = useRecoilState(dateState);
-  const [selectedDate, setSelectedDate] = useState(options[0].value);
+  const [selectedOption, setSelectedOption] = useState(options[0].value);
 
   const prevMonth = () => {
     const prevDate = subMonths(currentDate, 1);
@@ -25,7 +25,7 @@ export default function CalendarHeader() {
       return;
     }
     setCurrentDate(prevDate);
-    setSelectedDate(format(prevDate, 'yyyy년 MM월'));
+    setSelectedOption(format(prevDate, 'yyyy년 MM월'));
   };
 
   const nextMonth = () => {
@@ -35,14 +35,14 @@ export default function CalendarHeader() {
       return;
     }
     setCurrentDate(nextDate);
-    setSelectedDate(format(nextDate, 'yyyy년 MM월'));
+    setSelectedOption(format(nextDate, 'yyyy년 MM월'));
   };
 
   const handleChangeSelectOption = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const index = options.findIndex((option) => option.value === e.target.value);
     const date = new Date(options[index].key);
     setCurrentDate(date);
-    setSelectedDate(e.target.value);
+    setSelectedOption(e.target.value);
   };
 
   return (
@@ -53,7 +53,7 @@ export default function CalendarHeader() {
         </PrevButton>
         <SelectOption
           options={options}
-          defaultValue={selectedDate}
+          defaultValue={selectedOption}
           onChange={handleChangeSelectOption}
         />
         <NextButton onClick={nextMonth}>

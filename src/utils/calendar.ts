@@ -1,26 +1,26 @@
-import { getYear, getMonth } from 'date-fns';
+import { getMonth, getYear, subMonths } from 'date-fns';
 
-export function monthOf5YearFormat() {
+export function monthOf5YearDates() {
   const date = new Date();
-  const currentYear = getYear(date);
-  const currentMonth = getMonth(date) + 1;
-  const currentDates = [];
+  const prev5Year = getYear(date) - 5;
+  const year = getYear(date);
   const dates = [];
 
-  for (let i = currentMonth; i >= 1; i--) {
-    const dateFormat = `${currentYear}년 ${i}월`;
-    currentDates.push(dateFormat);
-  }
-  dates.push(...currentDates);
+  let currentDate = date;
 
-  for (let i = currentYear - 1; i >= currentYear - 5; i--) {
+  for (let i = 0; i <= getMonth(date); i++) {
+    currentDate = subMonths(date, i);
+    dates.push(currentDate);
+  }
+
+  for (let i = year - 1; i >= prev5Year; i--) {
     for (let j = 12; j >= 1; j--) {
-      const dateFormat = `${i}년 ${j}월`;
-      dates.push(dateFormat);
+      currentDate = subMonths(currentDate, 1);
+      dates.push(currentDate);
     }
   }
 
-  for (let i = currentMonth - 1; i >= 1; i--) {
+  for (let i = 0; i < getMonth(date); i++) {
     dates.pop();
   }
 

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import SelectCalendar from '../../SelectCalendar';
+import SelectOption from '../../SelectOption';
 import { IoMdArrowDropleft, IoMdArrowDropright } from 'react-icons/io';
 import { monthOf5YearFormat } from '../../../utils/calendar';
 import CalendarLayout from '../../layouts/CalendarLayout/CalendarLayout';
@@ -27,7 +27,7 @@ export default function CalendarHeader() {
         <PrevButton onClick={prevMonth}>
           <IoMdArrowDropleft size={24} />
         </PrevButton>
-        {options && <SelectCalendar options={options} defaultOption={options[0]} />}
+        {options && <SelectOption options={options} defaultOption={options[0]} />}
         <NextButton onClick={nextMonth}>
           <IoMdArrowDropright size={24} />
         </NextButton>

@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
-interface SelectCalendarProps {
+interface SelectOptionProps {
   options: string[];
   defaultOption: string;
 }
 
-export default function SelectCalendar({ options, defaultOption }: SelectCalendarProps) {
+export default function SelectCalendar({ options, defaultOption }: SelectOptionProps) {
   return (
     <St.Select defaultValue={defaultOption}>
       {options.map((option) => (

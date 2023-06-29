@@ -56,6 +56,7 @@ export default function Header() {
 
 const St = {
   Container: styled.header`
+    position: fixed;
     height: 60px;
     width: 100%;
     background-color: ${({ theme }) => theme.colors.bgElement1};

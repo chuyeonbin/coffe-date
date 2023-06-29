@@ -25,12 +25,14 @@ export default function DaysRender() {
   while (day <= endDate) {
     for (let i = 0; i < 7; i++) {
       const formatDate = isSameMonth(day, monthStart) ? format(day, 'd') : null;
-      const formatPrice = isSameMonth(day, monthStart) ? '-200,000' : null;
+      const formatPrice = isSameMonth(day, monthStart) ? '-20,000' : null;
       const formatCoffee = isSameMonth(day, monthStart) ? '☕️' : null;
 
       days.push(
         <St.Td key={day.getTime()}>
-          <St.Day>{formatDate}</St.Day>
+          <St.DayContainer>
+            <St.Day>{formatDate}</St.Day>
+          </St.DayContainer>
           <St.Price>{formatPrice}</St.Price>
           <St.Coffee>{formatCoffee}</St.Coffee>
         </St.Td>,
@@ -59,8 +61,16 @@ const St = {
 
   Item: styled.div``,
 
-  Day: styled.span`
+  DayContainer: styled.div`
+    display: flex;
+    justify-content: center;
     font-size: ${({ theme }) => theme.fontSizes.lg};
+  `,
+
+  Day: styled.div`
+    width: 33px;
+    border-radius: 50%;
+    background-color: ${({ theme }) => theme.colors.bgElement3};
     cursor: pointer;
   `,
 

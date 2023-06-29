@@ -25,6 +25,7 @@ declare module 'styled-components' {
       bgPage: string;
       bgElement1: string;
       bgElement2: string;
+      bgElement3: string;
       text1: string;
       text2: string;
       border1: string;

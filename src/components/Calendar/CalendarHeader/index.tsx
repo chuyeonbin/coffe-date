@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import SelectOption from '../../SelectOption';
 import { IoMdArrowDropleft, IoMdArrowDropright } from 'react-icons/io';
 import { monthOf5YearDates } from '../../../utils/calendar';
-import CalendarLayout from '../../layouts/CalendarLayout/CalendarLayout';
+import CalendarLayout from '../../layouts/CalendarLayout';
 import { useRecoilState } from 'recoil';
 import { currentDateState } from '../../../store/date';
 import { format, subMonths, getYear, getMonth } from 'date-fns';

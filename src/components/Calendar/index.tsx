@@ -1,16 +1,13 @@
-import styled from 'styled-components';
 import CalendarHeader from './CalendarHeader';
 import CalendarBody from './CalendarBody';
+import CalendarFooter from './CalendarFooter';
 
 export default function Calendar() {
   return (
-    <St.Container>
+    <>
       <CalendarHeader />
       <CalendarBody />
-    </St.Container>
+      <CalendarFooter />
+    </>
   );
 }
-
-const St = {
-  Container: styled.div``,
-};

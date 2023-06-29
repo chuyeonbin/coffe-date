@@ -1,4 +1,4 @@
-import CalendarLayout from '../../layouts/CalendarLayout/CalendarLayout';
+import CalendarLayout from '../../layouts/CalendarLayout';
 import CalendarTable from './CalendarTable';
 
 export default function CalendarBody() {

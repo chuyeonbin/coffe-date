@@ -7,12 +7,15 @@ import {
   addDays,
   format,
   isSameMonth,
+  isSameYear,
+  isSameDay,
 } from 'date-fns';
-import { useRecoilValue } from 'recoil';
-import { dateState } from '../../../../../store/date';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { currentDateState, selectedDateState } from '../../../../../store/date';
 
 export default function DaysRender() {
-  const currentDate = useRecoilValue(dateState);
+  const currentDate = useRecoilValue(currentDateState);
+  const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState);
   const monthStart = startOfMonth(currentDate);
   const monthEnd = endOfMonth(monthStart);
   const startDate = startOfWeek(monthStart);
@@ -22,16 +25,26 @@ export default function DaysRender() {
   let days = [];
   let day = startDate;
 
+  const handleDayClick = (date: Date) => () => {
+    setSelectedDate(date);
+  };
+
   while (day <= endDate) {
     for (let i = 0; i < 7; i++) {
       const formatDate = isSameMonth(day, monthStart) ? format(day, 'd') : null;
       const formatPrice = isSameMonth(day, monthStart) ? '-20,000' : null;
       const formatCoffee = isSameMonth(day, monthStart) ? '☕️' : null;
+      const isSelected =
+        isSameYear(selectedDate, day) &&
+        isSameMonth(selectedDate, day) &&
+        isSameDay(selectedDate, day);
 
       days.push(
         <St.Td key={day.getTime()}>
           <St.DayContainer>
-            <St.Day>{formatDate}</St.Day>
+            <St.Day onClick={handleDayClick(day)} selected={isSelected ? 1 : 0}>
+              {formatDate}
+            </St.Day>
           </St.DayContainer>
           <St.Price>{formatPrice}</St.Price>
           <St.Coffee>{formatCoffee}</St.Coffee>
@@ -39,6 +52,7 @@ export default function DaysRender() {
       );
 
       day = addDays(day, 1);
+      console.log(day);
     }
     rows.push(<St.Tr key={day.getTime()}>{days}</St.Tr>);
     days = [];
@@ -67,10 +81,12 @@ const St = {
     font-size: ${({ theme }) => theme.fontSizes.lg};
   `,
 
-  Day: styled.div`
+  Day: styled.div<{ selected: number }>`
     width: 33px;
     border-radius: 50%;
-    background-color: ${({ theme }) => theme.colors.bgElement3};
+    background-color: ${({ theme, selected }) =>
+      selected ? theme.colors.bgElement4 : theme.colors.bgElement3};
+    color: ${({ theme, selected }) => (selected ? theme.colors.text3 : 'inherit')};
     cursor: pointer;
   `,
 

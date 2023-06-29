@@ -5,7 +5,7 @@ import { IoMdArrowDropleft, IoMdArrowDropright } from 'react-icons/io';
 import { monthOf5YearDates } from '../../../utils/calendar';
 import CalendarLayout from '../../layouts/CalendarLayout/CalendarLayout';
 import { useRecoilState } from 'recoil';
-import { dateState } from '../../../store/date';
+import { currentDateState } from '../../../store/date';
 import { format, subMonths, getYear, getMonth } from 'date-fns';
 
 export default function CalendarHeader() {
@@ -13,7 +13,7 @@ export default function CalendarHeader() {
     key: date.getTime(),
     value: format(date, 'yyyy년 MM월'),
   }));
-  const [currentDate, setCurrentDate] = useRecoilState(dateState);
+  const [currentDate, setCurrentDate] = useRecoilState(currentDateState);
   const [selectedOption, setSelectedOption] = useState(options[0].value);
 
   const prevMonth = () => {

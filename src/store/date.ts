@@ -1,6 +1,11 @@
 import { atom } from 'recoil';
 
-export const dateState = atom<Date | number>({
-  key: 'date',
+export const currentDateState = atom<Date | number>({
+  key: 'currentDate',
+  default: new Date(),
+});
+
+export const selectedDateState = atom<Date | number>({
+  key: 'selectedDate',
   default: new Date(),
 });

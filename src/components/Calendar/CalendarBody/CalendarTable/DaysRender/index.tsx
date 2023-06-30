@@ -12,10 +12,12 @@ import {
 } from 'date-fns';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { currentDateState, selectedDateState } from '../../../../../store/date';
+import { useState } from 'react';
 
 export default function DaysRender() {
   const currentDate = useRecoilValue(currentDateState);
   const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState);
+  const [isSelectedDay, setIsSelectedDay] = useState(false);
   const monthStart = startOfMonth(currentDate);
   const monthEnd = endOfMonth(monthStart);
   const startDate = startOfWeek(monthStart);
@@ -26,7 +28,16 @@ export default function DaysRender() {
   let day = startDate;
 
   const handleDayClick = (date: Date) => () => {
-    setSelectedDate(date);
+    if (
+      isSameYear(selectedDate, date) &&
+      isSameMonth(selectedDate, date) &&
+      isSameDay(selectedDate, date)
+    ) {
+      setIsSelectedDay(!isSelectedDay);
+    } else {
+      setSelectedDate(date);
+      setIsSelectedDay(true);
+    }
   };
 
   while (day <= endDate) {
@@ -34,6 +45,7 @@ export default function DaysRender() {
       const formatDate = isSameMonth(day, monthStart) ? format(day, 'd') : null;
       const formatPrice = isSameMonth(day, monthStart) ? '-20,000' : null;
       const formatCoffee = isSameMonth(day, monthStart) ? '☕️' : null;
+
       const isSelected =
         isSameYear(selectedDate, day) &&
         isSameMonth(selectedDate, day) &&
@@ -42,7 +54,7 @@ export default function DaysRender() {
       days.push(
         <St.Td key={day.getTime()}>
           <St.DayContainer>
-            <St.Day onClick={handleDayClick(day)} selected={isSelected ? 1 : 0}>
+            <St.Day onClick={handleDayClick(day)} selected={isSelectedDay && isSelected ? 1 : 0}>
               {formatDate}
             </St.Day>
           </St.DayContainer>
@@ -52,7 +64,6 @@ export default function DaysRender() {
       );
 
       day = addDays(day, 1);
-      console.log(day);
     }
     rows.push(<St.Tr key={day.getTime()}>{days}</St.Tr>);
     days = [];

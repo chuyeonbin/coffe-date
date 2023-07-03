@@ -27,6 +27,7 @@ declare module 'styled-components' {
       bgElement2: string;
       bgElement3: string;
       bgElement4: string;
+      bgElement5: string;
       text1: string;
       text2: string;
       text3: strnig;

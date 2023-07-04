@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import ModalLeft from '../ModalLeft';
 import RegisterForm, { FormInputs } from '../RegisterForm';
 import { SubmitHandler } from 'react-hook-form';
-import { MouseEvent, useState } from 'react';
+import { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { userState } from '../../store/user';
 
@@ -14,7 +14,7 @@ export default function RegisterModal() {
     setUser({ email: 'cndusqls98', nickname: data.nickname, thumbnail: '' });
   };
 
-  const duplicationCheck = (e: MouseEvent<HTMLButtonElement>) => {
+  const duplicationCheck = () => {
     setIsUsableNickname(true);
   };
 

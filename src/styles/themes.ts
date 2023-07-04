@@ -8,6 +8,7 @@ const fontSizes: DefaultTheme['fontSizes'] = {
   xl: '20px',
   xxl: '22px',
   xxx1: '24px',
+  xxx2: '28px',
 };
 
 const fontWeights: DefaultTheme['fontWeights'] = {
@@ -15,6 +16,7 @@ const fontWeights: DefaultTheme['fontWeights'] = {
   bold: 800,
   semiBold: 700,
   regular: 600,
+  semiRegular: 500,
 };
 
 export const lightTheme: DefaultTheme = {
@@ -24,12 +26,18 @@ export const lightTheme: DefaultTheme = {
     bgPage: '#ffffff',
     bgElement1: '#ffffff',
     bgElement2: '#f2f4f6',
+    bgElement3: '#eeeeee',
+    bgElement4: '#c07343',
+    bgElement5: '#f6f6f6',
     elementShadow: '0 0 4px 0 rgba(55, 31, 0, 0.1), 0 4px 16px 0 rgba(55, 31, 0, 0.1)',
     text1: '#8b95a1',
     text2: '#000000',
+    text3: '#ffffff',
     border1: 'rgba(0, 27, 55, 0.1)',
     border2: '#c07343',
+    border3: 'rgba(0, 27, 55, 0.1)',
     primary1: '#c07343',
+    primary2: '#c07343',
     button1: '#c07343',
     button2: '#e1864e',
     buttonText: '#ffffff',
@@ -44,12 +52,18 @@ export const darkTheme: DefaultTheme = {
     bgPage: '#1b1b1d',
     bgElement1: '#242526',
     bgElement2: '#313131',
+    bgElement3: '#3b3b3b',
+    bgElement4: '#c07343',
+    bgElement5: '#333333',
     elementShadow: '0 0 4px 0 rgba(55, 31, 0, 0.1), 0 4px 16px 0 rgba(55, 31, 0, 0.1)',
     text1: '#ffffff',
     text2: '#ffffff',
+    text3: '#ffffff',
     border1: 'rgba(0, 27, 55, 0.1)',
     border2: '#e1864e',
+    border3: '#ffffff',
     primary1: '#dddddd',
+    primary2: '#c07343',
     button1: '#e1864e',
     button2: '#c07343',
     buttonText: '#ffffff',

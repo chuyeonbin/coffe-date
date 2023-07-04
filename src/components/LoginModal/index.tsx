@@ -8,7 +8,7 @@ export default function LoginModal() {
   const [isMessageVisible, setIsMessageVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit: SubmitHandler<FormInputs> = (data) => {
+  const handleSubmit: SubmitHandler<FormInputs> = () => {
     setIsLoading(true);
     setTimeout(() => {
       setIsMessageVisible(true);

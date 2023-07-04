@@ -2,9 +2,10 @@ import styled from 'styled-components';
 import { DAYS } from '../../../../utils/constant';
 import { format } from 'date-fns';
 
-// interface CoffeDetailProps {
-//   date: Date;
-// }
+interface CoffeDetailProps {
+  date: Date;
+  historys: { amount: number; cafe: string; coffee: string }[];
+}
 
 export default function CoffeeDetail() {
   const historys = [

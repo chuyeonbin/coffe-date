@@ -17,7 +17,7 @@ class HttpClient {
     return response.data;
   }
 
-  async post<T = any>(url: string, data: Object) {
+  async post<T = any>(url: string, data?: object) {
     const response: AxiosResponse<T> = await this.httpClient.post(url, data);
 
     return response.data;

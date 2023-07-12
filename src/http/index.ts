@@ -12,7 +12,7 @@ class HttpClient {
   }
 
   async get<T = any>(url: string) {
-    const response: AxiosResponse<T> = await this.httpClient.post(url);
+    const response: AxiosResponse<T> = await this.httpClient.get(url);
 
     return response.data;
   }

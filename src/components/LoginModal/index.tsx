@@ -4,7 +4,6 @@ import { SubmitHandler } from 'react-hook-form';
 import ModalLeft from '../ModalLeft';
 import { useMutation } from '@tanstack/react-query';
 import { sendEmailAPI } from '../../api/auth';
-import { useEffect } from 'react';
 
 export default function LoginModal() {
   const { mutate, isLoading, isSuccess } = useMutation((email: string) => sendEmailAPI({ email }));

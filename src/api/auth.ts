@@ -1,9 +1,13 @@
 import httpClient from '../http';
 
-export async function sendEmailAPI(payload: { email: string }) {
+export function sendEmailAPI(payload: { email: string }) {
   return httpClient.post('/auth/sendemail', payload);
 }
 
-export default function checkCodeAPI(code: string | null) {
-  return httpClient.get<{ checked: string }>(`/auth/code/${code}`);
+export function checkCodeAPI(code: string | null) {
+  return httpClient.get<{ checked: boolean }>(`/auth/code/${code}`);
+}
+
+export function duplicationCheckAPI(nickname: string) {
+  return httpClient.get<{ checked: boolean }>(`/auth/duplicate/${nickname}`);
 }

@@ -5,5 +5,5 @@ export async function sendEmailAPI(payload: { email: string }) {
 }
 
 export default function checkCodeAPI(code: string | null) {
-  return httpClient.get(`/auth/code/${code}`);
+  return httpClient.get<{ checked: string }>(`/auth/code/${code}`);
 }

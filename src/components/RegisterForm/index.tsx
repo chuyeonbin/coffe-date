@@ -1,4 +1,3 @@
-import { MouseEvent } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 
@@ -7,13 +6,15 @@ export interface FormInputs {
 }
 
 interface RegisterFormProps {
+  duplicateMessage: string;
   usableNickname: boolean;
-  duplicationCheck: (e: MouseEvent<HTMLButtonElement>) => void;
+  duplicationCheck: (nickname: string) => void;
   switchDuplication: () => void;
   onSubmit: SubmitHandler<FormInputs>;
 }
 
 export default function RegisterForm({
+  duplicateMessage,
   usableNickname,
   duplicationCheck,
   switchDuplication,
@@ -21,9 +22,15 @@ export default function RegisterForm({
 }: RegisterFormProps) {
   const {
     register,
+    getValues,
     formState: { errors },
     handleSubmit,
   } = useForm<FormInputs>();
+
+  const handleDuplicationCheck = () => {
+    const nickname = getValues('nickname');
+    duplicationCheck(nickname);
+  };
 
   return (
     <>
@@ -47,7 +54,7 @@ export default function RegisterForm({
             },
           })}
         />
-        <DuplicationCheckButton type='button' onClick={duplicationCheck}>
+        <DuplicationCheckButton type='button' onClick={handleDuplicationCheck}>
           중복체크
         </DuplicationCheckButton>
         <SubmitButton type='submit'>등록하기</SubmitButton>
@@ -55,7 +62,7 @@ export default function RegisterForm({
       {errors.nickname && errors.nickname.type === 'validate' && !usableNickname && (
         <St.FailMessage>{errors.nickname.message}</St.FailMessage>
       )}
-      {usableNickname && <St.SuccessMessage>사용 가능한 닉네임 입니다!</St.SuccessMessage>}
+      {usableNickname && <St.SuccessMessage>{duplicateMessage}</St.SuccessMessage>}
     </>
   );
 }

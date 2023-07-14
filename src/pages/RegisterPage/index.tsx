@@ -3,7 +3,7 @@ import RegisterModal from '../../components/RegisterModal';
 import { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
-import checkCodeAPI from '../../api/auth';
+import { checkCodeAPI } from '../../api/auth';
 
 export default function RegisterPage() {
   const [searchParams] = useSearchParams();

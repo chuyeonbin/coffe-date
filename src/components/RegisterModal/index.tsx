@@ -5,17 +5,30 @@ import { SubmitHandler } from 'react-hook-form';
 import { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { userState } from '../../store/user';
+import { useMutation } from '@tanstack/react-query';
+import { duplicationCheckAPI } from '../../api/auth';
 
 export default function RegisterModal() {
+  const [duplicateMessage, setDuplicateMessage] = useState('');
   const [isUsableNickname, setIsUsableNickname] = useState(false);
   const setUser = useSetRecoilState(userState);
+  const { mutate } = useMutation((nickname: string) => duplicationCheckAPI({ nickname }));
 
   const handleSubmit: SubmitHandler<FormInputs> = (data) => {
     setUser({ email: 'cndusqls98', nickname: data.nickname, thumbnail: '' });
   };
 
-  const duplicationCheck = () => {
-    setIsUsableNickname(true);
+  const duplicationCheck = (nickname: string) => {
+    if (!isUsableNickname) {
+      mutate(nickname, {
+        onSuccess: (data) => {
+          data.checked
+            ? setDuplicateMessage('사용 가능한 닉네임 입니다.')
+            : setDuplicateMessage('중복된 닉네임 입니다.');
+          setIsUsableNickname(true);
+        },
+      });
+    }
   };
 
   const switchDuplication = () => {
@@ -28,6 +41,7 @@ export default function RegisterModal() {
       <St.Right>
         <St.RegisterText>회원등록</St.RegisterText>
         <RegisterForm
+          duplicateMessage={duplicateMessage}
           onSubmit={handleSubmit}
           usableNickname={isUsableNickname}
           duplicationCheck={duplicationCheck}

@@ -11,13 +11,13 @@ class HttpClient {
     });
   }
 
-  async get<T = any>(url: string) {
+  async get<T>(url: string) {
     const response: AxiosResponse<T> = await this.httpClient.get(url);
 
     return response.data;
   }
 
-  async post<T = any>(url: string, data?: object) {
+  async post<T>(url: string, data?: object) {
     const response: AxiosResponse<T> = await this.httpClient.post(url, data);
 
     return response.data;

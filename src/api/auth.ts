@@ -8,6 +8,6 @@ export function checkCodeAPI(code: string | null) {
   return httpClient.get<{ checked: boolean }>(`/auth/code/${code}`);
 }
 
-export function duplicationCheckAPI(nickname: string) {
-  return httpClient.get<{ checked: boolean }>(`/auth/duplicate/${nickname}`);
+export function duplicationCheckAPI(payload: { nickname: string }) {
+  return httpClient.post<{ checked: boolean }>('/auth/duplicate', payload);
 }

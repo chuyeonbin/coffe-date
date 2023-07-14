@@ -24,7 +24,7 @@ export default function RegisterModal() {
         onSuccess: (data) => {
           data.checked
             ? setDuplicateMessage('사용 가능한 닉네임 입니다.')
-            : setDuplicateMessage('중복된 닉네임 입니다.');
+            : setDuplicateMessage('이미 사용중인 닉네임 입니다.');
           setIsUsableNickname(true);
         },
       });

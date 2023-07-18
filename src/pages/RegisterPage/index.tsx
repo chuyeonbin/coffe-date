@@ -24,7 +24,11 @@ export default function RegisterPage() {
 
   if (!code) return <Navigate to='/login' />;
 
-  return <St.Container>{!isLoading && <RegisterModal />}</St.Container>;
+  return (
+    <St.Container>
+      {!isLoading && !!data && <RegisterModal registerEmail={data.email} />}
+    </St.Container>
+  );
 }
 
 const St = {

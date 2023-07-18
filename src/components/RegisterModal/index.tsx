@@ -6,9 +6,15 @@ import { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { userState } from '../../store/user';
 import { useMutation } from '@tanstack/react-query';
-import { duplicationCheckAPI } from '../../api/auth';
+import { duplicationCheckAPI, signUpAPI } from '../../api/auth';
+import { useNavigate } from 'react-router-dom';
 
-export default function RegisterModal() {
+interface RegistermodalProps {
+  registerEmail: string;
+}
+
+export default function RegisterModal({ registerEmail }: RegistermodalProps) {
+  const navigate = useNavigate();
   const [duplicateMessage, setDuplicateMessage] = useState('');
   const [isUsableNickname, setIsUsableNickname] = useState(false);
   const setUser = useSetRecoilState(userState);
@@ -16,8 +22,21 @@ export default function RegisterModal() {
     duplicationCheckAPI({ nickname }),
   );
 
+  const { mutate: registerMutate } = useMutation((nickname: string) =>
+    signUpAPI({ email: registerEmail, nickname }),
+  );
+
   const handleSubmit: SubmitHandler<FormInputs> = (data) => {
-    setUser({ email: 'cndusqls98', nickname: data.nickname, thumbnail: '' });
+    registerMutate(data.nickname, {
+      onSuccess: (data) => {
+        if (!data) return;
+
+        const { email, nickname } = data.user;
+
+        setUser({ email, nickname, thumbnail: '' });
+        navigate('/');
+      },
+    });
   };
 
   const duplicationCheck = (nickname: string) => {

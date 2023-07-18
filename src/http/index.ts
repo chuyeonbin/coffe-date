@@ -3,7 +3,7 @@ import axios, { AxiosInstance, AxiosResponse } from 'axios';
 const BASE_URL = process.env.NODE_ENV == 'development' ? 'http://localhost:8080' : '';
 
 class HttpClient {
-  private httpClient: AxiosInstance;
+  protected httpClient: AxiosInstance;
 
   constructor() {
     this.httpClient = axios.create({
@@ -24,6 +24,32 @@ class HttpClient {
   }
 }
 
-const httpClient = new HttpClient();
+class AuthHttpClient extends HttpClient {
+  constructor() {
+    super();
+    this.httpClient.interceptors.request.use(
+      (config) => {
+        const accessToken = localStorage.getItem('access_token');
 
-export default httpClient;
+        this.httpClient.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+
+        return config;
+      },
+      (error) => {
+        return Promise.reject(error);
+      },
+    );
+
+    this.httpClient.interceptors.response.use(
+      (response) => {
+        return response;
+      },
+      (error) => Promise.reject(error),
+    );
+  }
+}
+
+const httpClient = new HttpClient();
+const authHttpClient = new AuthHttpClient();
+
+export { httpClient, authHttpClient };

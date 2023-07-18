@@ -12,7 +12,9 @@ export default function RegisterModal() {
   const [duplicateMessage, setDuplicateMessage] = useState('');
   const [isUsableNickname, setIsUsableNickname] = useState(false);
   const setUser = useSetRecoilState(userState);
-  const { mutate } = useMutation((nickname: string) => duplicationCheckAPI({ nickname }));
+  const { mutate: duplicationCheckMutate } = useMutation((nickname: string) =>
+    duplicationCheckAPI({ nickname }),
+  );
 
   const handleSubmit: SubmitHandler<FormInputs> = (data) => {
     setUser({ email: 'cndusqls98', nickname: data.nickname, thumbnail: '' });
@@ -20,7 +22,7 @@ export default function RegisterModal() {
 
   const duplicationCheck = (nickname: string) => {
     if (!isUsableNickname) {
-      mutate(nickname, {
+      duplicationCheckMutate(nickname, {
         onSuccess: (data) => {
           data.checked
             ? setDuplicateMessage('사용 가능한 닉네임 입니다.')

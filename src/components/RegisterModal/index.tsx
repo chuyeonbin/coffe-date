@@ -8,6 +8,7 @@ import { userState } from '../../store/user';
 import { useMutation } from '@tanstack/react-query';
 import { duplicationCheckAPI, signUpAPI } from '../../api/auth';
 import { useNavigate } from 'react-router-dom';
+import { ACCESS_TOKEN } from '../../utils/constant';
 
 interface RegistermodalProps {
   registerEmail: string;
@@ -29,11 +30,10 @@ export default function RegisterModal({ registerEmail }: RegistermodalProps) {
   const handleSubmit: SubmitHandler<FormInputs> = (data) => {
     registerMutate(data.nickname, {
       onSuccess: (data) => {
-        if (!data) return;
+        localStorage.setItem(ACCESS_TOKEN, data.access_token);
 
         const { email, nickname } = data.user;
-
-        setUser({ email, nickname, thumbnail: '' });
+        setUser({ email, nickname });
         navigate('/');
       },
     });

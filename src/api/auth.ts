@@ -15,9 +15,6 @@ export function duplicationCheckAPI(payload: { nickname: string }) {
 export function signUpAPI(payload: { email: string; nickname: string }) {
   return httpClient.post<{
     user: { nickname: string; email: string };
-    tokens: {
-      access_token: string;
-      refresh_token: string;
-    };
+    access_token: string;
   }>('auth/register', payload);
 }

@@ -1,4 +1,5 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
+import { ACCESS_TOKEN } from '../utils/constant';
 
 const BASE_URL = process.env.NODE_ENV == 'development' ? 'http://localhost:8080' : '';
 
@@ -31,7 +32,7 @@ class AuthHttpClient extends HttpClient {
 
     this.httpClient.interceptors.request.use(
       (config) => {
-        const accessToken = localStorage.getItem('access_token');
+        const accessToken = localStorage.getItem(ACCESS_TOKEN);
 
         if (!accessToken) return config;
 

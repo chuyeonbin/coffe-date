@@ -27,11 +27,15 @@ class HttpClient {
 class AuthHttpClient extends HttpClient {
   constructor() {
     super();
+    this.httpClient.defaults.withCredentials = true;
+
     this.httpClient.interceptors.request.use(
       (config) => {
         const accessToken = localStorage.getItem('access_token');
 
-        this.httpClient.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+        if (!accessToken) return config;
+
+        config.headers['Authorization'] = `Bearer ${accessToken}`;
 
         return config;
       },

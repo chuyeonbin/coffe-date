@@ -4,6 +4,7 @@ import MainPage from '../pages/MainPage';
 import LoginPage from '../pages/LoginPage';
 import ProtectedRoute from './ProtectedRoute';
 import RegisterPage from '../pages/RegisterPage';
+import EmailLoginPage from '../pages/EmailLoginPage';
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
       {
         path: 'login',
         element: <ProtectedRoute authentication={false} component={<LoginPage />} />,
+      },
+      {
+        path: 'email-login',
+        element: <ProtectedRoute authentication={false} component={<EmailLoginPage />} />,
       },
       {
         path: 'register',

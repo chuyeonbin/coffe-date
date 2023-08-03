@@ -5,17 +5,51 @@ import { SubmitHandler } from 'react-hook-form';
 import { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { userState } from '../../store/user';
+import { useMutation } from '@tanstack/react-query';
+import { duplicationCheckAPI, signUpAPI } from '../../api/auth';
+import { useNavigate } from 'react-router-dom';
+import { ACCESS_TOKEN } from '../../utils/constant';
 
-export default function RegisterModal() {
+interface RegistermodalProps {
+  registerEmail: string;
+}
+
+export default function RegisterModal({ registerEmail }: RegistermodalProps) {
+  const navigate = useNavigate();
+  const [duplicateMessage, setDuplicateMessage] = useState('');
   const [isUsableNickname, setIsUsableNickname] = useState(false);
   const setUser = useSetRecoilState(userState);
+  const { mutate: duplicationCheckMutate } = useMutation((nickname: string) =>
+    duplicationCheckAPI({ nickname }),
+  );
+
+  const { mutate: registerMutate } = useMutation((nickname: string) =>
+    signUpAPI({ email: registerEmail, nickname }),
+  );
 
   const handleSubmit: SubmitHandler<FormInputs> = (data) => {
-    setUser({ email: 'cndusqls98', nickname: data.nickname, thumbnail: '' });
+    registerMutate(data.nickname, {
+      onSuccess: (data) => {
+        localStorage.setItem(ACCESS_TOKEN, data.access_token);
+
+        const { email, nickname } = data.user;
+        setUser({ email, nickname });
+        navigate('/');
+      },
+    });
   };
 
-  const duplicationCheck = () => {
-    setIsUsableNickname(true);
+  const duplicationCheck = (nickname: string) => {
+    if (!isUsableNickname) {
+      duplicationCheckMutate(nickname, {
+        onSuccess: (data) => {
+          data.checked
+            ? setDuplicateMessage('사용 가능한 닉네임 입니다.')
+            : setDuplicateMessage('이미 사용중인 닉네임 입니다.');
+          setIsUsableNickname(true);
+        },
+      });
+    }
   };
 
   const switchDuplication = () => {
@@ -28,6 +62,7 @@ export default function RegisterModal() {
       <St.Right>
         <St.RegisterText>회원등록</St.RegisterText>
         <RegisterForm
+          duplicateMessage={duplicateMessage}
           onSubmit={handleSubmit}
           usableNickname={isUsableNickname}
           duplicationCheck={duplicationCheck}

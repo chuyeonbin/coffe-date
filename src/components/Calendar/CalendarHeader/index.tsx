@@ -30,10 +30,8 @@ export default function CalendarHeader() {
 
   const nextMonth = () => {
     const nextDate = subMonths(currentDate, -1);
-    if (getYear(nextDate) === getYear(new Date()) && getMonth(nextDate) > getMonth(new Date())) {
-      console.log('test');
+    if (getYear(nextDate) === getYear(new Date()) && getMonth(nextDate) > getMonth(new Date()))
       return;
-    }
     setCurrentDate(nextDate);
     setSelectedOption(format(nextDate, 'yyyy년 MM월'));
   };

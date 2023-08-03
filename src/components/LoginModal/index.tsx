@@ -1,18 +1,19 @@
 import { styled } from 'styled-components';
 import LoginForm, { FormInputs } from '../LoginForm';
 import { SubmitHandler } from 'react-hook-form';
-import { useState } from 'react';
 import ModalLeft from '../ModalLeft';
+import { useMutation } from '@tanstack/react-query';
+import { sendEmailAPI } from '../../api/auth';
 
 export default function LoginModal() {
-  const [isMessageVisible, setIsMessageVisible] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const { mutate, isLoading, isSuccess } = useMutation((email: string) => sendEmailAPI({ email }));
 
-  const handleSubmit: SubmitHandler<FormInputs> = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsMessageVisible(true);
-    }, 2000);
+  const handleSubmit: SubmitHandler<FormInputs> = (data) => {
+    mutate(data.email, {
+      onSuccess: () => {
+        localStorage.setItem('emailForLogin', data.email);
+      },
+    });
   };
 
   return (
@@ -20,7 +21,7 @@ export default function LoginModal() {
       <ModalLeft />
       <St.Right>
         <St.LoginText>로그인</St.LoginText>
-        {!isMessageVisible ? (
+        {!isSuccess ? (
           <LoginForm onSubmit={handleSubmit} loading={isLoading} />
         ) : (
           <St.EmailSendMessage>이메일로 로그인 링크를 전송 했습니다!</St.EmailSendMessage>

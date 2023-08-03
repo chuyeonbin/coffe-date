@@ -7,12 +7,22 @@ import HeaderMenu from '../HeaderMenu';
 import { userState } from '../../store/user';
 import { BiUser } from 'react-icons/bi';
 import useToggle from '../../hooks/useToggle';
+import { useMutation } from '@tanstack/react-query';
+import { logOutAPI } from '../../api/user';
+import { ACCESS_TOKEN } from '../../utils/constant';
 
 export default function Header() {
   const navigate = useNavigate();
   const [isVisible, toggleMenu] = useToggle(false);
   const [user, setUser] = useRecoilState(userState);
   const [isDarkMode, setIsDarkMode] = useRecoilState(darkModeState);
+  const { mutate: logOutMutate } = useMutation(() => logOutAPI(), {
+    onSuccess: () => {
+      navigate('/');
+      localStorage.removeItem(ACCESS_TOKEN);
+      setUser(null);
+    },
+  });
 
   const handleDarkModeClick = () => {
     setIsDarkMode(!isDarkMode);
@@ -20,8 +30,7 @@ export default function Header() {
 
   const handleLogOutClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    navigate('/');
-    setUser(null);
+    logOutMutate();
   };
 
   return (

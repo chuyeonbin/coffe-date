@@ -5,7 +5,7 @@ export function sendEmailAPI(payload: { email: string }) {
 }
 
 export function checkCodeAPI(code: string | null) {
-  return httpClient.get<{ checked: boolean; email: string }>(`/auth/code/${code}`);
+  return httpClient.get<{ email: string }>(`/auth/code/${code}`);
 }
 
 export function emailLoginAPI(code: string | null) {

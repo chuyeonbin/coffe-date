@@ -21,7 +21,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'email-login',
-        element: <ProtectedRoute authentication={false} component={<EmailLoginPage />} />,
+        element: <EmailLoginPage />,
       },
       {
         path: 'register',

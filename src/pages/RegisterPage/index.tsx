@@ -4,31 +4,27 @@ import { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
 import { checkCodeAPI } from '../../api/auth';
+import Loading from '../../components/Loading';
 
 export default function RegisterPage() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const code = searchParams.get('code');
-
-  const { data, isLoading } = useQuery(['resgiter-code'], () => checkCodeAPI(code), {
+  const { data, isLoading, isError } = useQuery(['resgiter-code'], () => checkCodeAPI(code), {
     enabled: !!code,
   });
 
   useEffect(() => {
-    if (data) {
-      if (!data.checked) {
-        navigate('/login');
-      }
+    if (!data?.email) {
+      navigate('/login');
     }
-  }, [data, isLoading]);
+  }, [data, isLoading, isError]);
 
-  if (!code) return <Navigate to='/login' />;
+  if (!code || isError) return <Navigate to='/login' />;
 
-  return (
-    <St.Container>
-      {!isLoading && !!data && <RegisterModal registerEmail={data.email} />}
-    </St.Container>
-  );
+  if (isLoading) return <Loading />;
+
+  return <St.Container>{<RegisterModal registerEmail={data.email} />}</St.Container>;
 }
 
 const St = {

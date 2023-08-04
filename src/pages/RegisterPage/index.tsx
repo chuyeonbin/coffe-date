@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 import RegisterModal from '../../components/RegisterModal';
 import { useQuery } from '@tanstack/react-query';
-import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
+import { Navigate, useSearchParams } from 'react-router-dom';
 import { checkCodeAPI } from '../../api/auth';
 import Loading from '../../components/Loading';
 

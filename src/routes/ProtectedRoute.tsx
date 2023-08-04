@@ -30,6 +30,7 @@ export default function ProtectedRoute({
         .catch((err) => {
           setUser(null);
           localStorage.removeItem(ACCESS_TOKEN);
+          navigate('/login');
           console.error(err);
         });
       return;

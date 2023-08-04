@@ -65,6 +65,7 @@ export default function Header() {
 
 const St = {
   Container: styled.header`
+    z-index: 100;
     position: fixed;
     height: 60px;
     width: 100%;

@@ -19,10 +19,12 @@ export default function EmailLoginPage() {
 
   useEffect(() => {
     if (data) {
-      localStorage.setItem(ACCESS_TOKEN, data.access_token);
+      if (data.user) {
+        localStorage.setItem(ACCESS_TOKEN, data.access_token);
 
-      const { email, nickname } = data.user;
-      setUser({ email, nickname });
+        const { email, nickname } = data.user;
+        setUser({ email, nickname });
+      }
       navigate('/');
     }
   }, [isLoading]);

@@ -42,7 +42,7 @@ export default function ProtectedRoute({
   }, []);
 
   if (authentication) {
-    return user ? <>{Component}</> : <Navigate to={'login'} />;
+    return user ? <>{Component}</> : <Navigate to={'/login'} />;
   }
 
   return user ? <Navigate to={'/'} /> : <>{Component}</>;

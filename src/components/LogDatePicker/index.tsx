@@ -18,6 +18,7 @@ export default function LogDatePicker({ onChangeLogDate }: LogDatePickerProps) {
     <St.Container>
       <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ko}>
         <DateTimePicker
+          sx={{ width: '100%' }}
           label='소비 일시'
           value={currentDate}
           onChange={(logDate) => logDate && onChangeLogDate(logDate)}

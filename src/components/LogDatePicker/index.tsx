@@ -14,6 +14,14 @@ interface LogDatePickerProps {
 
 export default function LogDatePicker({ onChangeLogDate }: LogDatePickerProps) {
   const currentDate = useRecoilValue(currentDateState);
+
+  const disableKeyboardEntry = (e: any) => {
+    if (e?.preventDefault) {
+      e?.preventDefault();
+      e?.stopPropagation();
+    }
+  };
+
   return (
     <St.Container>
       <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ko}>
@@ -28,6 +36,11 @@ export default function LogDatePicker({ onChangeLogDate }: LogDatePickerProps) {
             hours: renderTimeViewClock,
             minutes: renderTimeViewClock,
             seconds: renderTimeViewClock,
+          }}
+          slotProps={{
+            textField: {
+              onBeforeInput: disableKeyboardEntry,
+            },
           }}
         />
       </LocalizationProvider>

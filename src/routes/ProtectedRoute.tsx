@@ -1,6 +1,6 @@
 import { useRecoilState } from 'recoil';
 import { userState } from '../store/user';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { getUserAPI } from '../api/user';
 import { ACCESS_TOKEN } from '../utils/constant';
@@ -15,10 +15,11 @@ export default function ProtectedRoute({
   authentication,
 }: ProtectedRouteProps) {
   const [user, setUser] = useRecoilState(userState);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const accessToken = localStorage.getItem(ACCESS_TOKEN);
-    if (accessToken) {
+    if (accessToken && authentication) {
       getUserAPI()
         .then((data) => {
           if (data) {
@@ -29,16 +30,19 @@ export default function ProtectedRoute({
         .catch((err) => {
           setUser(null);
           localStorage.removeItem(ACCESS_TOKEN);
+          navigate('/login');
           console.error(err);
         });
       return;
     }
-    setUser(null);
-    localStorage.removeItem(ACCESS_TOKEN);
+
+    if (!accessToken && authentication) {
+      navigate('/login');
+    }
   }, []);
 
   if (authentication) {
-    return user ? <>{Component}</> : <Navigate to={'login'} />;
+    return user ? <>{Component}</> : <Navigate to={'/login'} />;
   }
 
   return user ? <Navigate to={'/'} /> : <>{Component}</>;

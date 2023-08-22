@@ -5,6 +5,7 @@ import LoginPage from '../pages/LoginPage';
 import ProtectedRoute from './ProtectedRoute';
 import RegisterPage from '../pages/RegisterPage';
 import EmailLoginPage from '../pages/EmailLoginPage';
+import LogPage from '../pages/LogPage';
 
 const router = createBrowserRouter([
   {
@@ -16,12 +17,16 @@ const router = createBrowserRouter([
         element: <ProtectedRoute authentication={true} component={<MainPage />} />,
       },
       {
+        path: 'log',
+        element: <ProtectedRoute authentication={true} component={<LogPage />} />,
+      },
+      {
         path: 'login',
         element: <ProtectedRoute authentication={false} component={<LoginPage />} />,
       },
       {
         path: 'email-login',
-        element: <EmailLoginPage />,
+        element: <ProtectedRoute authentication={false} component={<EmailLoginPage />} />,
       },
       {
         path: 'register',

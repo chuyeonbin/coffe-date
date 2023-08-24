@@ -1,7 +1,7 @@
 import { isSameDay, parseISO } from 'date-fns';
 import { LogType } from '../store/logs';
 
-export function logsByPriceSum(logs: LogType[], date: Date) {
+export function dayByPriceSum(logs: LogType[], date: Date) {
   let sum = 0;
   logs.forEach((log) => {
     if (isSameDay(parseISO(log.date), date)) {
@@ -10,5 +10,16 @@ export function logsByPriceSum(logs: LogType[], date: Date) {
     }
   });
 
-  return sum === 0 ? null : sum;
+  return sum === 0 ? null : `-${sum.toLocaleString()}`;
+}
+
+export function dayByCoffeeSum(logs: LogType[], date: Date) {
+  let sum = '';
+  logs.forEach((log) => {
+    if (isSameDay(parseISO(log.date), date)) {
+      sum += '☕️';
+    }
+  });
+
+  return sum === '' ? null : sum;
 }

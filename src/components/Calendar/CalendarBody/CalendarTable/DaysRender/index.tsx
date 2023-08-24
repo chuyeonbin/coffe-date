@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import {
   startOfMonth,
@@ -12,12 +13,11 @@ import {
 } from 'date-fns';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { currentDateState, selectedDateState } from '../../../../../store/date';
-import { useEffect, useState } from 'react';
-import { LogsState } from '../../../../../store/logs';
+import { logsState } from '../../../../../store/logs';
 import { dayByCoffeeSum, dayByPriceSum } from '../../../../../utils/logs';
 
 export default function DaysRender() {
-  const logs = useRecoilValue(LogsState);
+  const logs = useRecoilValue(logsState);
   const currentDate = useRecoilValue(currentDateState);
   const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState);
   const [isSelectedDay, setIsSelectedDay] = useState(false);

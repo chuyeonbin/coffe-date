@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import SelectOption from '../../SelectOption';
 import { IoMdArrowDropleft, IoMdArrowDropright } from 'react-icons/io';
 import { monthOf5YearDates } from '../../../utils/calendar';
 import CalendarLayout from '../../layouts/CalendarLayout';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { currentDateState } from '../../../store/date';
 import { format, subMonths, getYear, getMonth } from 'date-fns';
+import { logsState } from '../../../store/logs';
 
 export default function CalendarHeader() {
+  const logs = useRecoilValue(logsState);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalCoffee, setTotalCoffee] = useState(0);
+
   const options = monthOf5YearDates().map((date) => ({
     key: date.getTime(),
     value: format(date, 'yyyy년 MM월'),
@@ -43,6 +48,11 @@ export default function CalendarHeader() {
     setSelectedOption(e.target.value);
   };
 
+  useEffect(() => {
+    setTotalPrice(logs.reduce((prev, curr) => prev + curr.price, 0));
+    setTotalCoffee(logs.length);
+  }, [logs]);
+
   return (
     <CalendarLayout>
       <St.CalendarContainer>
@@ -59,14 +69,12 @@ export default function CalendarHeader() {
         </NextButton>
       </St.CalendarContainer>
       <St.TotalContainer>
-        <St.TotalPrice>122,400원</St.TotalPrice>
+        <St.TotalPrice>{totalPrice.toLocaleString()}원</St.TotalPrice>
         <St.TotalCupContainer>
           <St.TotalCupDescription>
-            이번달은 총 <span>22잔</span> 마셨어요.
+            이번달은 총 <span>{totalCoffee}잔</span> 마셨어요.
           </St.TotalCupDescription>
-          <St.TotalCup>
-            ☕️☕️☕️☕️☕️☕️☕️☕️☕️☕️☕️☕️☕️☕️☕️☕️☕️☕️☕️☕️☕️☕️
-          </St.TotalCup>
+          <St.TotalCup>{'☕️'.repeat(totalCoffee)}</St.TotalCup>
         </St.TotalCupContainer>
       </St.TotalContainer>
     </CalendarLayout>

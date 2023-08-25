@@ -1,14 +1,29 @@
 import { styled } from 'styled-components';
 import CoffeeDetail from '../CoffeeDetail';
-
-// interface CoffeDetailsProps {
-//   date: Date;
-// }
+import { useRecoilValue } from 'recoil';
+import { groupedByDateLogsState } from '../../../../store/logs';
+import { parseISO } from 'date-fns';
+import { DAYS } from '../../../../utils/constant';
 
 export default function CoffeeDetails() {
+  const groupedByDateLogs = useRecoilValue(groupedByDateLogsState);
+
+  const sortedDates = Object.keys(groupedByDateLogs).sort((a, b) => {
+    return parseISO(a) < parseISO(b) ? 1 : -1;
+  });
+
   return (
     <St.Container>
-      <CoffeeDetail />
+      {sortedDates.map((sortedDate) => (
+        <St.DateContainer key={sortedDate}>
+          <St.DateFormat>
+            {sortedDate.slice(-2)}일 {DAYS[parseISO(sortedDate).getDay()]}요일
+          </St.DateFormat>
+          {groupedByDateLogs[sortedDate].map((log) => (
+            <CoffeeDetail key={log.id} log={log} />
+          ))}
+        </St.DateContainer>
+      ))}
     </St.Container>
   );
 }
@@ -16,5 +31,14 @@ export default function CoffeeDetails() {
 const St = {
   Container: styled.div`
     min-height: 200px;
+  `,
+  DateContainer: styled.div`
+    margin-bottom: 2rem;
+  `,
+  DateFormat: styled.p`
+    margin-bottom: 1rem;
+    color: ${({ theme }) => theme.colors.text1};
+    font-size: ${({ theme }) => theme.fontSizes.sm};
+    font-weight: ${({ theme }) => theme.fontWeights.regular};
   `,
 };

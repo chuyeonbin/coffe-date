@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import {
   startOfMonth,
@@ -12,9 +13,11 @@ import {
 } from 'date-fns';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { currentDateState, selectedDateState } from '../../../../../store/date';
-import { useState } from 'react';
+import { logsState } from '../../../../../store/logs';
+import { dayByCoffeeSum, dayByPriceSum } from '../../../../../utils/logs';
 
 export default function DaysRender() {
+  const logs = useRecoilValue(logsState);
   const currentDate = useRecoilValue(currentDateState);
   const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState);
   const [isSelectedDay, setIsSelectedDay] = useState(false);
@@ -43,8 +46,8 @@ export default function DaysRender() {
   while (day <= endDate) {
     for (let i = 0; i < 7; i++) {
       const formatDate = isSameMonth(day, monthStart) ? format(day, 'd') : null;
-      const formatPrice = isSameMonth(day, monthStart) ? '-20,000' : null;
-      const formatCoffee = isSameMonth(day, monthStart) ? '☕️' : null;
+      const formatPrice = isSameMonth(day, monthStart) ? dayByPriceSum(logs, day) : null;
+      const formatCoffee = isSameMonth(day, monthStart) ? dayByCoffeeSum(logs, day) : null;
 
       const isSelected =
         isSameYear(selectedDate, day) &&

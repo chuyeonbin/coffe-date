@@ -5,7 +5,6 @@ export function dayByPriceSum(logs: LogType[], date: Date) {
   let sum = 0;
   logs.forEach((log) => {
     if (isSameDay(parseISO(log.date), date)) {
-      console.log(log);
       sum += log.price;
     }
   });

@@ -1,3 +1,4 @@
+import { parseISO } from 'date-fns';
 import { atom, selector } from 'recoil';
 
 export interface LogType {
@@ -31,5 +32,18 @@ export const groupedByDateLogsState = selector({
     });
 
     return groupedByDateLogs;
+  },
+});
+
+export const sortedDatesState = selector({
+  key: 'sortedDates',
+  get: ({ get }) => {
+    const logs = get(logsState);
+    const dates = logs.map((log) => log.date.slice(0, 10));
+    const filterDates = Array.from(new Set(dates));
+    const sortedDates = filterDates.sort((dateA, dateB) =>
+      parseISO(dateA) < parseISO(dateB) ? 1 : -1,
+    );
+    return sortedDates;
   },
 });

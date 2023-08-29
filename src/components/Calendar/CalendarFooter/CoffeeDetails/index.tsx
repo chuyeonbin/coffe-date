@@ -1,16 +1,13 @@
 import { styled } from 'styled-components';
 import CoffeeDetail from '../CoffeeDetail';
 import { useRecoilValue } from 'recoil';
-import { groupedByDateLogsState } from '../../../../store/logs';
+import { groupedByDateLogsState, sortedDatesState } from '../../../../store/logs';
 import { parseISO } from 'date-fns';
 import { DAYS } from '../../../../utils/constant';
 
 export default function CoffeeDetails() {
   const groupedByDateLogs = useRecoilValue(groupedByDateLogsState);
-
-  const sortedDates = Object.keys(groupedByDateLogs).sort((a, b) => {
-    return parseISO(a) < parseISO(b) ? 1 : -1;
-  });
+  const sortedDates = useRecoilValue(sortedDatesState);
 
   return (
     <St.Container>

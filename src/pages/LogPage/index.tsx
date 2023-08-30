@@ -39,7 +39,7 @@ export default function LogPage() {
   return (
     <DefaultLayout>
       <LogDatePicker onChangeLogDate={handleChangeLogDate} />
-      <LogForm onSubmit={handleSubmit} />
+      <LogForm isEdit={false} onSubmit={handleSubmit} />
     </DefaultLayout>
   );
 }

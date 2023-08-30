@@ -9,10 +9,20 @@ export interface LogFormInputs {
 }
 
 interface LogFormProps {
+  defaultPrice?: string;
+  defaultCafe?: string;
+  defaultCoffee?: string;
+  isEdit: boolean;
   onSubmit: SubmitHandler<LogFormInputs>;
 }
 
-export default function LogForm({ onSubmit }: LogFormProps) {
+export default function LogForm({
+  defaultPrice,
+  defaultCafe,
+  defaultCoffee,
+  isEdit,
+  onSubmit,
+}: LogFormProps) {
   const { register, handleSubmit } = useForm<LogFormInputs>();
 
   return (
@@ -22,6 +32,7 @@ export default function LogForm({ onSubmit }: LogFormProps) {
         <St.Input
           type='text'
           placeholder='0원'
+          defaultValue={defaultPrice || ''}
           {...register('price', {
             required: true,
             onChange: (e: ChangeEvent<HTMLInputElement>) => {
@@ -40,6 +51,7 @@ export default function LogForm({ onSubmit }: LogFormProps) {
         <St.Input
           type='text'
           placeholder='ex)스타벅스산본사거리'
+          defaultValue={defaultCafe || ''}
           {...register('cafe', { required: true })}
         />
       </St.InputBox>
@@ -48,11 +60,12 @@ export default function LogForm({ onSubmit }: LogFormProps) {
         <St.Input
           type='text'
           placeholder='ex)아메리카노'
+          defaultValue={defaultCoffee || ''}
           {...register('coffee', { required: true })}
         />
       </St.InputBox>
       <St.Button type='submit' onClick={handleSubmit(onSubmit)}>
-        추가하기
+        {isEdit ? '수정' : '추가'}하기
       </St.Button>
     </St.Form>
   );

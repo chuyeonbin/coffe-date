@@ -6,6 +6,7 @@ import ProtectedRoute from './ProtectedRoute';
 import RegisterPage from '../pages/RegisterPage';
 import EmailLoginPage from '../pages/EmailLoginPage';
 import LogPage from '../pages/LogPage';
+import LogEditPage from '../pages/LogEditPage';
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       {
         path: 'log',
         element: <ProtectedRoute authentication={true} component={<LogPage />} />,
+      },
+      {
+        path: 'log-edit/:id',
+        element: <ProtectedRoute authentication={true} component={<LogEditPage />} />,
       },
       {
         path: 'login',

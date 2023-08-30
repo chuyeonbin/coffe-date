@@ -8,3 +8,13 @@ export function getLogsAPI(date: string) {
 export function addLogAPI(payload: { price: number; cafe: string; coffee: string; date: string }) {
   return authHttpClient.post('/log', payload);
 }
+
+export function editLogAPI(payload: {
+  id: number;
+  price: number;
+  cafe: string;
+  coffee: string;
+  date: string;
+}) {
+  return authHttpClient.patch('log', payload);
+}

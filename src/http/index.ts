@@ -23,6 +23,12 @@ class HttpClient {
 
     return response.data;
   }
+
+  async patch<T>(url: string, data?: any) {
+    const response: AxiosResponse<T> = await this.httpClient.patch(url, data);
+
+    return response.data;
+  }
 }
 
 class AuthHttpClient extends HttpClient {

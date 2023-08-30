@@ -9,10 +9,11 @@ import { currentDateState } from '../../store/date';
 import { sub } from 'date-fns';
 
 interface LogDatePickerProps {
+  defaultDate?: Date | number;
   onChangeLogDate: (date: Date | number) => void;
 }
 
-export default function LogDatePicker({ onChangeLogDate }: LogDatePickerProps) {
+export default function LogDatePicker({ defaultDate, onChangeLogDate }: LogDatePickerProps) {
   const currentDate = useRecoilValue(currentDateState);
 
   const disableKeyboardEntry = (e: any) => {
@@ -28,7 +29,7 @@ export default function LogDatePicker({ onChangeLogDate }: LogDatePickerProps) {
         <DateTimePicker
           sx={{ width: '100%' }}
           label='소비 일시'
-          value={currentDate}
+          value={defaultDate || currentDate}
           onChange={(logDate) => logDate && onChangeLogDate(logDate)}
           maxDate={currentDate}
           minDate={sub(currentDate, { years: 5 })}

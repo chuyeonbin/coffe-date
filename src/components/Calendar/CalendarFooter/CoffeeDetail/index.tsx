@@ -1,6 +1,12 @@
+import { useState } from 'react';
 import styled from 'styled-components';
-import { LogType } from '../../../../store/logs';
+import { LogType, logsState } from '../../../../store/logs';
 import { useNavigate } from 'react-router-dom';
+import RemoveAlertDialog from '../../../RemoveAlertDialog';
+import { useMutation } from '@tanstack/react-query';
+import { deleteLogAPI } from '../../../../api/log';
+import { toast } from 'react-toastify';
+import { useSetRecoilState } from 'recoil';
 
 interface CoffeeDetailProps {
   log: LogType;
@@ -8,9 +14,32 @@ interface CoffeeDetailProps {
 
 export default function CoffeeDetail({ log }: CoffeeDetailProps) {
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
+  const setLogsState = useSetRecoilState(logsState);
+  const { mutateAsync } = useMutation((id: number) => deleteLogAPI(id));
 
   const goToEditPage = () => {
     navigate(`log-edit/${log.id}`);
+  };
+  const handleClickOpen = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleClose = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleRemove = async () => {
+    try {
+      const data = await mutateAsync(log.id);
+      setLogsState((prevLogs) => prevLogs.filter((log) => log.id !== data.id));
+      navigate('/');
+      toast.success('기록 삭제를 성공했습니다!');
+    } catch (error) {
+      toast.error('기록 삭제를 실패했습니다!');
+    } finally {
+      setIsOpen(!isOpen);
+    }
   };
 
   return (
@@ -27,8 +56,11 @@ export default function CoffeeDetail({ log }: CoffeeDetailProps) {
       <St.ButtonContainer>
         <EditButton onClick={goToEditPage}>수정</EditButton>
         <pre> | </pre>
-        <RemoveButton>삭제</RemoveButton>
+        <RemoveButton onClick={handleClickOpen}>삭제</RemoveButton>
       </St.ButtonContainer>
+      {isOpen && (
+        <RemoveAlertDialog isOpen={isOpen} onClose={handleClose} onRemove={handleRemove} />
+      )}
     </St.Container>
   );
 }

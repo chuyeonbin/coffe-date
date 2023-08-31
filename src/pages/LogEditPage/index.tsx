@@ -66,7 +66,3 @@ export default function LogEditPage() {
     </DefaultLayout>
   );
 }
-
-const St = {
-  Container: styled.div``,
-};

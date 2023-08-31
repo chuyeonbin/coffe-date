@@ -18,3 +18,7 @@ export function editLogAPI(payload: {
 }) {
   return authHttpClient.patch('log', payload);
 }
+
+export function deleteLogAPI(id: number) {
+  return authHttpClient.delete<{ id: number }>(`/log/${id}`);
+}

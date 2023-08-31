@@ -29,6 +29,12 @@ class HttpClient {
 
     return response.data;
   }
+
+  async delete<T>(url: string, data?: any) {
+    const response: AxiosResponse<T> = await this.httpClient.delete(url, data);
+
+    return response.data;
+  }
 }
 
 class AuthHttpClient extends HttpClient {
